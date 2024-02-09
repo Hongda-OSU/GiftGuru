@@ -1,4 +1,5 @@
 import React from "react";
+import './homePage.css';
 import { Slider } from "@mui/material";
 import { Stack } from "@mui/material";
 import { Select } from "@mui/material";
@@ -9,16 +10,46 @@ import { Box } from "@mui/material";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
 import { Grid } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Container } from "@mui/material";
+import DropzoneAreaExample from "../dropZone/dropZone";
 
 const HomePage = ({value, onChange}) => {
 
 
     return (
-    <div>
+    <div >
+
+        <Container maxWidth='sm'>
+
+        <div >
+            <Box sx={{ minWidth: 200}}>
+                <FormControl fullWidth>
+                    <Typography variant="h4" gutterBottom>
+                        GiftGuru
+                    </Typography>
+                </FormControl>
+            </Box>
+        </div>
+
+
+        <div>
+            <DropzoneAreaExample></DropzoneAreaExample>
+        </div>
+
+        <div >
+            <Box sx={{ minWidth: 200}}>
+                <FormControl fullWidth>
+                    <Typography variant="body2" gutterBottom>
+                        Recipient gender
+                    </Typography>
+                </FormControl>
+            </Box>
+        </div>
         <div>
             <Box sx={{ minWidth: 200 }}>
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Select gender</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -34,19 +65,35 @@ const HomePage = ({value, onChange}) => {
             </Box>
         </div> 
 
+        <Box sx={{ minWidth: 200}}>
+                <FormControl fullWidth>
+                    <Typography variant="body2" gutterBottom>
+                        Recipient age range
+                    </Typography>
+                </FormControl>
+        </Box>
+
         <div>
             <Box component="form" sx={{ minWidth: 200 }} noValidate autoComplete="off">
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Select age range</InputLabel>
                         <TextField id="outlined-basic" label="" variant="outlined"></TextField>
                 </FormControl>
             </Box>
         </div>
 
+        <Box sx={{ minWidth: 200}}>
+                <FormControl fullWidth>
+                    <Typography variant="body2" gutterBottom>
+                        Relationship with recipient
+                    </Typography>
+                </FormControl>
+            </Box>
+
         <div>
             <Box sx={{ minWidth: 200 }} >
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Relationship</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Select relationship</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -66,6 +113,14 @@ const HomePage = ({value, onChange}) => {
             </Box>
         </div>
 
+        <Box sx={{ minWidth: 200}}>
+                <FormControl fullWidth>
+                    <Typography variant="body2" gutterBottom>
+                        Price range
+                    </Typography>
+                </FormControl>
+            </Box>
+
         <div>
             <Box sx={{ minWidth: 200 }} >
                 <FormControl fullWidth>
@@ -81,19 +136,28 @@ const HomePage = ({value, onChange}) => {
         <div>
             <Box component="form" sx={{ minWidth: 200 }} noValidate autoComplete="off">
                 <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Enter Additional Information</InputLabel>
                         <TextField id="outlined-basic" label="" variant="outlined"></TextField>
                 </FormControl>
             </Box>
         </div>
 
+        <Box sx={{ minWidth: 200}}>
+                <FormControl fullWidth>
+                    <Typography variant="body2" gutterBottom>
+                        Any other information
+                    </Typography>
+                </FormControl>
+        </Box>
+
         <div>
-            <Box sx={{ width: 300, minWidth: 200, borderRadius: 20}} >
+            <Box sx={{ minWidth: 200, borderRadius: 20}} >
                 <FormControl fullWidth>
                     <Button variant="contained">Confirm</Button>
                 </FormControl>
             </Box>
         </div>
+        </Container>
     </div>
     );
 };
