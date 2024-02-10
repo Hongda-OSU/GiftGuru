@@ -139,7 +139,7 @@ const HomePage = ({ value, onChange }) => {
               </Typography>
             </FormControl>
 
-            <FormControl>
+            <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">
                 Enter Additional Information
               </InputLabel>
@@ -150,7 +150,7 @@ const HomePage = ({ value, onChange }) => {
               ></TextField>
             </FormControl>
 
-            <FormControl>
+            <FormControl fullWidth>
               <Button variant="contained">Confirm</Button>
             </FormControl>
           </Box>
