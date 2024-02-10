@@ -20,10 +20,13 @@ import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 const HomePage = ({}) => {
 
+  const navigate = useNavigate();
+  
   const [sliderValue, setSliderValue] = React.useState([20, 40]);
   const handleSliderChange = (event) => {
 
@@ -114,7 +117,7 @@ const HomePage = ({}) => {
               <Select
                 labelId="age-range-select-label"
                 id="age-range-select"
-                value={ageValue} // Ensure this is managed in state to reflect the current selection
+                value={ageValue} 
                 label="Age Range"
                 onChange={handleAgeChange}
               >
@@ -222,6 +225,7 @@ const HomePage = ({}) => {
             >
               <Button
                 variant="contained"
+                onClick={() => navigate("/recommendations")}
                 sx={{
                   borderRadius: 50,
                   width: "100%",
