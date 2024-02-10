@@ -13,6 +13,7 @@ import {
   Grid,
   Typography,
   Container,
+  Divider,
 } from "@mui/material";
 
 import DropzoneAreaExample from "../dropZone/dropZone";
@@ -38,9 +39,17 @@ const HomePage = ({ value, onChange }) => {
           style={{ marginTop: "70px", marginBottom: "70px" }}
         >
           <Box sx={{ minWidth: 200 }}>
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ my: 2 }}>
               <DropzoneAreaExample></DropzoneAreaExample>
             </FormControl>
+
+            <FormControl fullWidth>
+              <Typography variant="body2" gutterBottom>
+                OPTIONAL INPUTS
+              </Typography>
+            </FormControl>
+
+            <Divider sx={{ my: 1 }}/>
 
             <FormControl fullWidth>
               <Typography variant="body2" gutterBottom>
@@ -72,14 +81,24 @@ const HomePage = ({ value, onChange }) => {
             </FormControl>
 
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id="age-range-select-label">
                 Select age range
               </InputLabel>
-              <TextField
-                id="outlined-basic"
-                label=""
-                variant="outlined"
-              ></TextField>
+              <Select
+                labelId="age-range-select-label"
+                id="age-range-select"
+                value={value} // Ensure this is managed in state to reflect the current selection
+                label="Age Range"
+                onChange={onChange}
+              >
+                <MenuItem value={"under 18"}>Under 18</MenuItem>
+                <MenuItem value={"18-24"}>18~24</MenuItem>
+                <MenuItem value={"25-30"}>25~30</MenuItem>
+                <MenuItem value={"31-40"}>31~40</MenuItem>
+                <MenuItem value={"41-50"}>41~50</MenuItem>
+                <MenuItem value={"51-60"}>51~60</MenuItem>
+                <MenuItem value={">60"}>Over 60</MenuItem>
+              </Select>
             </FormControl>
 
             <FormControl fullWidth>
@@ -139,19 +158,42 @@ const HomePage = ({ value, onChange }) => {
               </Typography>
             </FormControl>
 
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">
-                Enter Additional Information
+            <FormControl fullWidth sx={{ textAlign: "center", mb: 2 }}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "center" }}
+              >
               </InputLabel>
               <TextField
                 id="outlined-basic"
                 label=""
                 variant="outlined"
-              ></TextField>
+                placeholder="Enter Additional Information"
+                sx={{
+                  height: "50px",
+                  width: "100%",
+                  margin: "0 auto",
+                }} 
+              />
             </FormControl>
 
-            <FormControl>
-              <Button variant="contained">Confirm</Button>
+            <FormControl sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}>
+              <Button
+                variant="contained"
+                sx={{
+                  borderRadius: 50,
+                  width: "100%", 
+                  "&:hover": {
+                    backgroundColor: "#d45800" 
+                  }
+                }}
+              >
+                Confirm
+              </Button>
             </FormControl>
           </Box>
         </Container>
