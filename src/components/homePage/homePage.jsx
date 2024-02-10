@@ -49,7 +49,7 @@ const HomePage = ({ value, onChange }) => {
               </Typography>
             </FormControl>
 
-            <Divider sx={{ my: 1 }}/>
+            <Divider sx={{ my: 1 }} />
 
             <FormControl fullWidth>
               <Typography variant="body2" gutterBottom>
@@ -145,9 +145,20 @@ const HomePage = ({ value, onChange }) => {
                 aria-label="Volume"
                 value={value}
                 onChange={onChange}
-                valueLabelDisplay="on"
+                valueLabelDisplay="auto"
                 min={0}
                 max={1000}
+                sx={{
+                  "& .MuiSlider-thumb": {
+                    color: "#007580",
+                  },
+                  "& .MuiSlider-track": {
+                    color: "#007580",
+                  },
+                  "& .MuiSlider-rail": {
+                    color: "#007580",
+                  },
+                }}
               />
               <p>$1000</p>
             </Stack>
@@ -162,8 +173,7 @@ const HomePage = ({ value, onChange }) => {
               <InputLabel
                 id="demo-simple-select-label"
                 sx={{ textAlign: "center" }}
-              >
-              </InputLabel>
+              ></InputLabel>
               <TextField
                 id="outlined-basic"
                 label=""
@@ -173,26 +183,30 @@ const HomePage = ({ value, onChange }) => {
                   height: "50px",
                   width: "100%",
                   margin: "0 auto",
-                }} 
+                }}
               />
             </FormControl>
 
-            <FormControl sx={{
+            <FormControl
+              sx={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-              }}>
+              }}
+            >
               <Button
                 variant="contained"
                 sx={{
                   borderRadius: 50,
-                  width: "100%", 
+                  width: "100%",
+                  background: "linear-gradient(45deg, #00b859, #007580)",
                   "&:hover": {
-                    backgroundColor: "#d45800" 
-                  }
+                    transform: "scale(1.02)",
+                    filter: "brightness(1.1)",
+                  },
                 }}
               >
-                Confirm
+                Get Recommendations
               </Button>
             </FormControl>
           </Box>
