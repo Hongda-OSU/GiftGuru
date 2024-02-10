@@ -19,8 +19,17 @@ import {
 import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
+import { useState } from "react";
+
 
 const HomePage = ({ value, onChange }) => {
+
+  const [sliderValue, setSliderValue] = React.useState([20, 37]);
+  const handleChange = (event, newValue) => {
+
+    setSliderValue(newValue);
+  };
+  
   return (
     <Box
       sx={{
@@ -143,8 +152,8 @@ const HomePage = ({ value, onChange }) => {
               <p>$0</p>
               <Slider
                 aria-label="Volume"
-                value={value}
-                onChange={onChange}
+                value={sliderValue}
+                onChange={handleChange}
                 valueLabelDisplay="auto"
                 min={0}
                 max={1000}
