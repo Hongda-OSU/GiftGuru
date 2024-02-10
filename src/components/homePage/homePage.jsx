@@ -13,12 +13,16 @@ import {
   Grid,
   Typography,
   Container,
+<<<<<<< HEAD
   Divider,
+=======
+  Hidden,
+>>>>>>> 3e9d203b04efba7a73b9eb7a09ede20752ed3623
 } from "@mui/material";
 
-import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
+import MyUploader from "../dropZone/uploader";
 
 const HomePage = ({ value, onChange }) => {
   return (
@@ -39,13 +43,19 @@ const HomePage = ({ value, onChange }) => {
           style={{ marginTop: "70px", marginBottom: "70px" }}
         >
           <Box sx={{ minWidth: 200 }}>
+<<<<<<< HEAD
             <FormControl fullWidth sx={{ my: 2 }}>
               <DropzoneAreaExample></DropzoneAreaExample>
+=======
+            <FormControl fullWidth sx={{height: 120, paddingBottom: 1, overflow: 'hidden'}}>
+              <MyUploader className="dropzone"></MyUploader>
+>>>>>>> 3e9d203b04efba7a73b9eb7a09ede20752ed3623
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{}}>
               <Typography variant="body2" gutterBottom>
                 OPTIONAL INPUTS
+<<<<<<< HEAD
               </Typography>
             </FormControl>
 
@@ -53,6 +63,10 @@ const HomePage = ({ value, onChange }) => {
 
             <FormControl fullWidth>
               <Typography variant="body2" gutterBottom>
+=======
+                <br></br>
+                <hr></hr>
+>>>>>>> 3e9d203b04efba7a73b9eb7a09ede20752ed3623
                 Recipient gender
               </Typography>
             </FormControl>
@@ -145,7 +159,7 @@ const HomePage = ({ value, onChange }) => {
                 aria-label="Volume"
                 value={value}
                 onChange={onChange}
-                valueLabelDisplay="on"
+                valueLabelDisplay="auto"
                 min={0}
                 max={1000}
               />
@@ -158,11 +172,17 @@ const HomePage = ({ value, onChange }) => {
               </Typography>
             </FormControl>
 
+<<<<<<< HEAD
             <FormControl fullWidth sx={{ textAlign: "center", mb: 2 }}>
               <InputLabel
                 id="demo-simple-select-label"
                 sx={{ textAlign: "center" }}
               >
+=======
+            <FormControl fullWidth sx={{paddingBottom: 2}}>
+              <InputLabel id="demo-simple-select-label">
+                Enter Additional Information
+>>>>>>> 3e9d203b04efba7a73b9eb7a09ede20752ed3623
               </InputLabel>
               <TextField
                 id="outlined-basic"
@@ -177,6 +197,7 @@ const HomePage = ({ value, onChange }) => {
               />
             </FormControl>
 
+<<<<<<< HEAD
             <FormControl sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -194,6 +215,10 @@ const HomePage = ({ value, onChange }) => {
               >
                 Confirm
               </Button>
+=======
+            <FormControl fullWidth>
+              <Button variant="contained">Confirm</Button>
+>>>>>>> 3e9d203b04efba7a73b9eb7a09ede20752ed3623
             </FormControl>
           </Box>
         </Container>

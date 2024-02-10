@@ -5,7 +5,7 @@ import Logo from '../../../public/logo2.png';
 
 const Header = () => {
   return (
-    <AppBar position="fixed" sx={{ top: 0, backgroundColor: '#d45800', height: '50px' }}> 
+    <AppBar position="fixed" sx={{ top: 0, backgroundColor: '#1976d2', height: '50px' }}> 
       <Toolbar variant="dense" sx={{ justifyContent: 'center' }}>
         <IconButton edge="start" aria-label="logo">
           <img src={Logo} alt="Logo" style={{ height: '24px' }} />
