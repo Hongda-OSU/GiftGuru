@@ -1,17 +1,20 @@
 import React from "react";
 import './homePage.css';
-import { Slider } from "@mui/material";
-import { Stack } from "@mui/material";
-import { Select } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { FormControl } from "@mui/material";
-import { Box } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Button } from "@mui/material";
-import { Grid } from "@mui/material";
-import { Typography } from "@mui/material";
-import { Container } from "@mui/material";
+import { 
+    Slider, 
+    Stack, 
+    Select, 
+    InputLabel, 
+    MenuItem, 
+    FormControl, 
+    Box, 
+    TextField, 
+    Button, 
+    Grid, 
+    Typography, 
+    Container 
+} from "@mui/material";
+
 import DropzoneAreaExample from "../dropZone/dropZone";
 
 const HomePage = ({value, onChange}) => {
@@ -19,35 +22,25 @@ const HomePage = ({value, onChange}) => {
 
     return (
     <div >
-
         <Container maxWidth='sm'>
 
-        <div >
             <Box sx={{ minWidth: 200}}>
                 <FormControl fullWidth>
                     <Typography variant="h4" gutterBottom>
                         GiftGuru
                     </Typography>
                 </FormControl>
-            </Box>
-        </div>
 
+                <FormControl fullWidth>
+                    <DropzoneAreaExample></DropzoneAreaExample>
+                </FormControl>
 
-        <div>
-            <DropzoneAreaExample></DropzoneAreaExample>
-        </div>
-
-        <div >
-            <Box sx={{ minWidth: 200}}>
                 <FormControl fullWidth>
                     <Typography variant="body2" gutterBottom>
                         Recipient gender
                     </Typography>
                 </FormControl>
-            </Box>
-        </div>
-        <div>
-            <Box sx={{ minWidth: 200 }}>
+
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Select gender</InputLabel>
                         <Select
@@ -61,37 +54,26 @@ const HomePage = ({value, onChange}) => {
                             <MenuItem value={'female'}>Female</MenuItem>
                             <MenuItem value={'other'}>Other</MenuItem>
                         </Select>
-                </FormControl>
-            </Box>
-        </div> 
+                    </FormControl>
+  
 
-        <Box sx={{ minWidth: 200}}>
                 <FormControl fullWidth>
                     <Typography variant="body2" gutterBottom>
                         Recipient age range
                     </Typography>
                 </FormControl>
-        </Box>
-
-        <div>
-            <Box component="form" sx={{ minWidth: 200 }} noValidate autoComplete="off">
+    
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Select age range</InputLabel>
                         <TextField id="outlined-basic" label="" variant="outlined"></TextField>
                 </FormControl>
-            </Box>
-        </div>
-
-        <Box sx={{ minWidth: 200}}>
+     
                 <FormControl fullWidth>
                     <Typography variant="body2" gutterBottom>
                         Relationship with recipient
                     </Typography>
                 </FormControl>
-            </Box>
 
-        <div>
-            <Box sx={{ minWidth: 200 }} >
                 <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Select relationship</InputLabel>
                         <Select
@@ -110,53 +92,36 @@ const HomePage = ({value, onChange}) => {
                             <MenuItem value={'other'}>Other</MenuItem>
                         </Select>
                 </FormControl>
-            </Box>
-        </div>
 
-        <Box sx={{ minWidth: 200}}>
                 <FormControl fullWidth>
                     <Typography variant="body2" gutterBottom>
                         Price range
                     </Typography>
                 </FormControl>
-            </Box>
 
-        <div>
-            <Box sx={{ minWidth: 200 }} >
-                <FormControl fullWidth>
-                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
+                    <Stack spacing={2} direction="row" sx={{ mb: 1}} alignItems="center">
                         <p>$0</p>
-                        <Slider aria-label="Volume" value={value} onChange={onChange} />
+                        <Slider aria-label="Volume" value={value} onChange={onChange} valueLabelDisplay="on" min={0} max={1000} />
                         <p>$1000</p>
                     </Stack>
-                </FormControl>
-            </Box>
-        </div>
 
-        <div>
-            <Box component="form" sx={{ minWidth: 200 }} noValidate autoComplete="off">
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Enter Additional Information</InputLabel>
-                        <TextField id="outlined-basic" label="" variant="outlined"></TextField>
-                </FormControl>
-            </Box>
-        </div>
 
-        <Box sx={{ minWidth: 200}}>
                 <FormControl fullWidth>
                     <Typography variant="body2" gutterBottom>
                         Any other information
                     </Typography>
                 </FormControl>
-        </Box>
 
-        <div>
-            <Box sx={{ minWidth: 200, borderRadius: 20}} >
-                <FormControl fullWidth>
+                <FormControl>
+                    <InputLabel id="demo-simple-select-label">Enter Additional Information</InputLabel>
+                    <TextField id="outlined-basic" label="" variant="outlined"></TextField>
+                </FormControl>
+
+                <FormControl>
                     <Button variant="contained">Confirm</Button>
+
                 </FormControl>
             </Box>
-        </div>
         </Container>
     </div>
     );
