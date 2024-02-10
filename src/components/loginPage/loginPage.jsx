@@ -1,11 +1,12 @@
-import { useRef, useState } from "react";
-import { Model } from "./giftBox";
+import { useRef, useState, Suspense } from "react";
+import Gift from "./gift";
 import { Canvas } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
+import { Environment, CameraShake } from "@react-three/drei";
 import "./loginPage.less";
 
 const LoginPage = () => {
   const loginRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
   const scrollToLogin = () => {
     loginRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -13,7 +14,9 @@ const LoginPage = () => {
   return (
     <>
       <div className="splash">
-        <div className="one"></div>
+        <div className="one">
+          <div></div>
+        </div>
         <div className="two">
           <h2 className="title">
             <span>
@@ -27,19 +30,33 @@ const LoginPage = () => {
           <Canvas
             className="canvas"
             onClick={scrollToLogin}
-            shadows
+            dpr={[1, 2]}
             camera={{ fov: 75, position: [-10, 4, 20] }}
           >
-            <ambientLight intensity={0.4} />
-            <spotLight
-              position={[10, 10, 10]}
-              angle={0.3}
-              penumbra={1}
-              castShadow
-            />
-            <Model position={[0, 0, 0]} />
-            <Environment preset="apartment" />
+            <Suspense fallback={null}>
+              <ambientLight />
+              <Gift
+                position={[0, 0, 0]}
+                isHovered={isHovered}
+                onHover={setIsHovered}
+              />
+              <Environment files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/aerodynamics_workshop_1k.hdr" />
+              {!isHovered && (
+                <CameraShake
+                  maxPitch={0.05}
+                  maxRoll={0.05}
+                  maxYaw={0.03}
+                  pitchFrequency={0.8}
+                  rollFrequency={0.8}
+                  yawFrequency={0.8}
+                />
+              )}
+            </Suspense>
           </Canvas>
+          <div className="click-me" style={{ opacity: isHovered ? 1 : 0 }}>
+            <span>CLICK</span>
+            <span>&nbsp;&nbsp;ME!</span>
+          </div>
         </div>
       </div>
       <div className="login" ref={loginRef}></div>

@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "scripts": {
     "start": "vite",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "serve": "vite preview",
     "test": "vitest --ui",
@@ -17,6 +17,7 @@
     "@mui/material": "^5.15.9",
     "@react-three/drei": "^9.97.3",
     "@react-three/fiber": "^8.15.16",
+    "framer-motion": "^11.0.3",
     "less": "^4.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
