@@ -24,7 +24,7 @@ const BottomNavbar = () => {
         display: "flex",
         justifyContent: "space-evenly",
         alignItems: "center",
-        backgroundColor: "#d45800",
+        backgroundColor: "#1976d2",
       }}
     >
       <IconButton

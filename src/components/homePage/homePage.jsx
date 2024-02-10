@@ -13,11 +13,12 @@ import {
   Grid,
   Typography,
   Container,
+  Hidden,
 } from "@mui/material";
 
-import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
+import MyUploader from "../dropZone/uploader";
 
 const HomePage = ({ value, onChange }) => {
   return (
@@ -38,12 +39,15 @@ const HomePage = ({ value, onChange }) => {
           style={{ marginTop: "70px", marginBottom: "70px" }}
         >
           <Box sx={{ minWidth: 200 }}>
-            <FormControl fullWidth>
-              <DropzoneAreaExample></DropzoneAreaExample>
+            <FormControl fullWidth sx={{height: 120, paddingBottom: 1, overflow: 'hidden'}}>
+              <MyUploader className="dropzone"></MyUploader>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{}}>
               <Typography variant="body2" gutterBottom>
+                OPTIONAL INPUTS
+                <br></br>
+                <hr></hr>
                 Recipient gender
               </Typography>
             </FormControl>
@@ -126,7 +130,7 @@ const HomePage = ({ value, onChange }) => {
                 aria-label="Volume"
                 value={value}
                 onChange={onChange}
-                valueLabelDisplay="on"
+                valueLabelDisplay="auto"
                 min={0}
                 max={1000}
               />
@@ -139,7 +143,7 @@ const HomePage = ({ value, onChange }) => {
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{paddingBottom: 2}}>
               <InputLabel id="demo-simple-select-label">
                 Enter Additional Information
               </InputLabel>
