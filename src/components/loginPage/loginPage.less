@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap");
+
+.splash {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: rgba(255, 255, 255, 1);
+  background-image: url("https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgpatrick-perkins-dh-GQlgia60-unsplash.jpg");
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow-y: auto;
+}
+
+.one {
+  flex: 1;
+}
+
+.two {
+  display: flex;
+  flex: 1;
+}
+
+.title {
+  margin: auto;
+  color: #ce2d4a;
+  text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2);
+  line-height: 2;
+  width: fit-content;
+  font-size: 64px;
+  font-family: "Inter", sans-serif;
+}
+
+.title span {
+  background: linear-gradient(to right, #eb3349, #f45c43) no-repeat right bottom;
+  background-size: 0px 5px;
+  transition: background-size 1200ms;
+}
+
+.title span:hover {
+  background-position-x: left;
+  background-size: 100% 5px;
+}
+
+.three {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.canvas {
+  cursor: pointer;
+}
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: #ce2d4a;
+}
