@@ -22,12 +22,30 @@ import Header from "../header/header";
 import { useState } from "react";
 
 
-const HomePage = ({ value, onChange }) => {
+const HomePage = ({}) => {
 
-  const [sliderValue, setSliderValue] = React.useState([20, 37]);
-  const handleChange = (event, newValue) => {
+  const [sliderValue, setSliderValue] = React.useState([20, 40]);
+  const handleSliderChange = (event) => {
 
-    setSliderValue(newValue);
+    setSliderValue(event.target.value);
+  };
+
+  const [ageValue, setAgeValue] = React.useState("");
+  const handleAgeChange = (event) => {
+
+    setAgeValue(event.target.value);
+  };
+
+  const [relationshipValue, setRelationshipValue] = React.useState("");
+  const handleRelationshipChange = (event) => {
+
+    setRelationshipValue(event.target.value);
+  };
+
+  const [genderValue, setGenderValue] = useState('');
+  const handleGenderChange = (event) => {
+
+    setGenderValue(event.target.value);
   };
   
   return (
@@ -73,9 +91,9 @@ const HomePage = ({ value, onChange }) => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={value}
+                value={genderValue}
                 label="Gender"
-                onChange={onChange}
+                onChange={handleGenderChange}
               >
                 <MenuItem value={"male"}>Male</MenuItem>
                 <MenuItem value={"female"}>Female</MenuItem>
@@ -96,9 +114,9 @@ const HomePage = ({ value, onChange }) => {
               <Select
                 labelId="age-range-select-label"
                 id="age-range-select"
-                value={value} // Ensure this is managed in state to reflect the current selection
+                value={ageValue} // Ensure this is managed in state to reflect the current selection
                 label="Age Range"
-                onChange={onChange}
+                onChange={handleAgeChange}
               >
                 <MenuItem value={"under 18"}>Under 18</MenuItem>
                 <MenuItem value={"18-24"}>18~24</MenuItem>
@@ -123,9 +141,9 @@ const HomePage = ({ value, onChange }) => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={value}
+                value={relationshipValue}
                 label="Relationship"
-                onChange={onChange}
+                onChange={handleRelationshipChange}
               >
                 <MenuItem value={"father"}>Father</MenuItem>
                 <MenuItem value={"mother"}>Mother</MenuItem>
@@ -151,9 +169,8 @@ const HomePage = ({ value, onChange }) => {
             >
               <p>$0</p>
               <Slider
-                aria-label="Volume"
                 value={sliderValue}
-                onChange={handleChange}
+                onChange={handleSliderChange}
                 valueLabelDisplay="auto"
                 min={0}
                 max={1000}
