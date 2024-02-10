@@ -1,13 +1,15 @@
 import React from 'react';
+import "./header.css";
 import { AppBar, Toolbar, IconButton } from '@mui/material';
-import Logo from '../../../public/logo2.png'; // Update the relative path according to your project structure
+import Logo from '../../../public/logo2.png';
 
 const Header = () => {
   return (
-    <AppBar position="fixed" sx={{ top: 0, backgroundColor: '#d45800' }}> {/* Changed color here */}
+    <AppBar position="fixed" sx={{ top: 0, backgroundColor: '#d45800', height: '50px' }}> 
       <Toolbar variant="dense" sx={{ justifyContent: 'center' }}>
         <IconButton edge="start" aria-label="logo">
           <img src={Logo} alt="Logo" style={{ height: '24px' }} />
+          <p className="header-title" >GiftGuru</p>
         </IconButton>
       </Toolbar>
     </AppBar>

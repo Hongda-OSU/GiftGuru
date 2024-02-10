@@ -26,20 +26,18 @@ const HomePage = ({ value, onChange }) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "100%",
+        height: "100vh",
         width: "100%",
+        paddingBottom: "60px",
       }}
     >
       <Header />
       <div>
-        <Container maxWidth="sm">
+        <Container
+          maxWidth="sm"
+          style={{ marginTop: "70px", marginBottom: "70px" }}
+        >
           <Box sx={{ minWidth: 200 }}>
-            <FormControl fullWidth>
-              <Typography variant="h4" gutterBottom>
-                GiftGuru
-              </Typography>
-            </FormControl>
-
             <FormControl fullWidth>
               <DropzoneAreaExample></DropzoneAreaExample>
             </FormControl>
@@ -158,7 +156,7 @@ const HomePage = ({ value, onChange }) => {
           </Box>
         </Container>
       </div>
-      <BottomNavbar />
+      <BottomNavbar style={{ position: "fixed", bottom: 0, width: "100%" }} />
     </Box>
   );
 };
