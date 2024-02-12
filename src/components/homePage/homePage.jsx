@@ -1,101 +1,250 @@
 import React from "react";
-import { Slider } from "@mui/material";
-import { Stack } from "@mui/material";
-import { Select } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { FormControl } from "@mui/material";
-import { Box } from "@mui/material";
-import { TextField } from "@mui/material";
-import { Button } from "@mui/material";
-import { Grid } from "@mui/material";
+import "./homePage.css";
+import {
+  Slider,
+  Stack,
+  Select,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Box,
+  TextField,
+  Button,
+  Grid,
+  Typography,
+  Container,
+  Divider,
+} from "@mui/material";
 
-const HomePage = ({value, onChange}) => {
+import DropzoneAreaExample from "../dropZone/dropZone";
+import BottomNavbar from "../bottomNavBar/bottomNavBar";
+import Header from "../header/header";
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
-    return (
-    <div>
-        <div>
-            <Box sx={{ minWidth: 200 }}>
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Gender</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={value}
-                            label="Gender"
-                            onChange={onChange}
-                            >
-                            <MenuItem value={'male'}>Male</MenuItem>
-                            <MenuItem value={'female'}>Female</MenuItem>
-                            <MenuItem value={'other'}>Other</MenuItem>
-                        </Select>
-                </FormControl>
-            </Box>
-        </div> 
+const HomePage = ({}) => {
 
-        <div>
-            <Box component="form" sx={{ minWidth: 200 }} noValidate autoComplete="off">
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                        <TextField id="outlined-basic" label="" variant="outlined"></TextField>
-                </FormControl>
-            </Box>
-        </div>
+  const navigate = useNavigate();
+  
+  const [sliderValue, setSliderValue] = React.useState([20, 40]);
+  const handleSliderChange = (event) => {
 
-        <div>
-            <Box sx={{ minWidth: 200 }} >
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Relationship</InputLabel>
-                        <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
-                            value={value}
-                            label="Relationship"
-                            onChange={onChange}
-                            >
-                            <MenuItem value={'father'}>Father</MenuItem>
-                            <MenuItem value={'mother'}>Mother</MenuItem>
-                            <MenuItem value={'brother'}>Brother</MenuItem>
-                            <MenuItem value={'sister'}>Sister</MenuItem>
-                            <MenuItem value={'spouse'}>Spouse</MenuItem>
-                            <MenuItem value={'friend'}>Friend</MenuItem>
-                            <MenuItem value={'other'}>Other</MenuItem>
-                        </Select>
-                </FormControl>
-            </Box>
-        </div>
+    setSliderValue(event.target.value);
+  };
 
-        <div>
-            <Box sx={{ minWidth: 200 }} >
-                <FormControl fullWidth>
-                    <Stack spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
-                        <p>$0</p>
-                        <Slider aria-label="Volume" value={value} onChange={onChange} />
-                        <p>$1000</p>
-                    </Stack>
-                </FormControl>
-            </Box>
-        </div>
+  const [ageValue, setAgeValue] = React.useState("");
+  const handleAgeChange = (event) => {
 
-        <div>
-            <Box component="form" sx={{ minWidth: 200 }} noValidate autoComplete="off">
-                <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                        <TextField id="outlined-basic" label="" variant="outlined"></TextField>
-                </FormControl>
-            </Box>
-        </div>
+    setAgeValue(event.target.value);
+  };
 
-        <div>
-            <Box sx={{ width: 300, minWidth: 200, borderRadius: 20}} >
-                <FormControl fullWidth>
-                    <Button variant="contained">Confirm</Button>
-                </FormControl>
-            </Box>
-        </div>
-    </div>
-    );
+  const [relationshipValue, setRelationshipValue] = React.useState("");
+  const handleRelationshipChange = (event) => {
+
+    setRelationshipValue(event.target.value);
+  };
+
+  const [genderValue, setGenderValue] = useState('');
+  const handleGenderChange = (event) => {
+
+    setGenderValue(event.target.value);
+  };
+  
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        height: "100vh",
+        width: "100%",
+        paddingBottom: "60px",
+      }}
+    >
+      <Header />
+      <div>
+        <Container
+          maxWidth="sm"
+          style={{ marginTop: "70px", marginBottom: "70px" }}
+        >
+          <Box sx={{ minWidth: 200 }}>
+            <FormControl fullWidth sx={{ my: 2 }}>
+              <DropzoneAreaExample></DropzoneAreaExample>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <Typography variant="body2" gutterBottom>
+                OPTIONAL INPUTS
+              </Typography>
+            </FormControl>
+
+            <Divider sx={{ my: 1 }} />
+
+            <FormControl fullWidth>
+              <Typography variant="body2" gutterBottom>
+                Recipient gender
+              </Typography>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Select gender
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={genderValue}
+                label="Gender"
+                onChange={handleGenderChange}
+              >
+                <MenuItem value={"male"}>Male</MenuItem>
+                <MenuItem value={"female"}>Female</MenuItem>
+                <MenuItem value={"other"}>Other</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <Typography variant="body2" gutterBottom>
+                Recipient age range
+              </Typography>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel id="age-range-select-label">
+                Select age range
+              </InputLabel>
+              <Select
+                labelId="age-range-select-label"
+                id="age-range-select"
+                value={ageValue} 
+                label="Age Range"
+                onChange={handleAgeChange}
+              >
+                <MenuItem value={"under 18"}>Under 18</MenuItem>
+                <MenuItem value={"18-24"}>18~24</MenuItem>
+                <MenuItem value={"25-30"}>25~30</MenuItem>
+                <MenuItem value={"31-40"}>31~40</MenuItem>
+                <MenuItem value={"41-50"}>41~50</MenuItem>
+                <MenuItem value={"51-60"}>51~60</MenuItem>
+                <MenuItem value={">60"}>Over 60</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <Typography variant="body2" gutterBottom>
+                Relationship with recipient
+              </Typography>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Select relationship
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={relationshipValue}
+                label="Relationship"
+                onChange={handleRelationshipChange}
+              >
+                <MenuItem value={"father"}>Father</MenuItem>
+                <MenuItem value={"mother"}>Mother</MenuItem>
+                <MenuItem value={"brother"}>Brother</MenuItem>
+                <MenuItem value={"sister"}>Sister</MenuItem>
+                <MenuItem value={"spouse"}>Spouse</MenuItem>
+                <MenuItem value={"friend"}>Friend</MenuItem>
+                <MenuItem value={"other"}>Other</MenuItem>
+              </Select>
+            </FormControl>
+
+            <FormControl fullWidth>
+              <Typography variant="body2" gutterBottom>
+                Price range
+              </Typography>
+            </FormControl>
+
+            <Stack
+              spacing={2}
+              direction="row"
+              sx={{ mb: 1 }}
+              alignItems="center"
+            >
+              <p>$0</p>
+              <Slider
+                value={sliderValue}
+                onChange={handleSliderChange}
+                valueLabelDisplay="auto"
+                min={0}
+                max={1000}
+                sx={{
+                  "& .MuiSlider-thumb": {
+                    color: "#007580",
+                  },
+                  "& .MuiSlider-track": {
+                    color: "#007580",
+                  },
+                  "& .MuiSlider-rail": {
+                    color: "#007580",
+                  },
+                }}
+              />
+              <p>$1000</p>
+            </Stack>
+
+            <FormControl fullWidth>
+              <Typography variant="body2" gutterBottom>
+                Any other information
+              </Typography>
+            </FormControl>
+
+            <FormControl fullWidth sx={{ textAlign: "center", mb: 2 }}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "center" }}
+              ></InputLabel>
+              <TextField
+                id="outlined-basic"
+                label=""
+                variant="outlined"
+                placeholder="Enter Additional Information"
+                sx={{
+                  height: "50px",
+                  width: "100%",
+                  margin: "0 auto",
+                }}
+              />
+            </FormControl>
+
+            <FormControl
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Button
+                variant="contained"
+                onClick={() => navigate("/recommendations")}
+                sx={{
+                  borderRadius: 50,
+                  width: "100%",
+                  background: "linear-gradient(45deg, #00b859, #007580)",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                    filter: "brightness(1.1)",
+                  },
+                }}
+              >
+                Get Recommendations
+              </Button>
+            </FormControl>
+          </Box>
+        </Container>
+      </div>
+      <BottomNavbar style={{ position: "fixed", bottom: 0, width: "100%" }} />
+    </Box>
+  );
 };
 
 export default HomePage;
