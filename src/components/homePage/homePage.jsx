@@ -51,7 +51,7 @@ const HomePage = ({}) => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "100vh",
+        height: "auto",
         width: "100%",
         paddingBottom: "60px",
       }}

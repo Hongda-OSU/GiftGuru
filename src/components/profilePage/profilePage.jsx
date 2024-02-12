@@ -45,10 +45,8 @@ const ProfilePage = () => {
     try {
       const user = auth.currentUser;
       await deleteUser(user);
-      // 用户已被删除，重定向到登录页面或其他页面
       navigate("/login");
     } catch (err) {
-      // 处理错误情况，例如显示错误消息
       console.error("Error deleting user account:", err.message);
       alert("Error deleting account: " + err.message);
     }
@@ -60,7 +58,7 @@ const ProfilePage = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "100vh",
+        height: "auto",
         width: "100%",
         paddingBottom: "60px",
       }}
