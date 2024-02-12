@@ -1,0 +1,347 @@
+@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
+@import url("https://fonts.googleapis.com/css?family=VT323");
+
+.splash {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  background: radial-gradient(
+    circle,
+    rgba(255, 252, 0, 1) 0%,
+    rgba(240, 237, 23, 1) 100%
+  );
+  overflow-y: auto;
+}
+
+.one {
+  flex: 1;
+}
+
+.two {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.splash-title {
+  width: fit-content;
+  margin: auto;
+  color: white;
+  text-shadow: 0 0.1em 20px black, 0.05em -0.03em 0 black,
+    0.05em 0.005em 0 black, 0em 0.08em 0 black, 0.05em 0.08em 0 black,
+    0px -0.03em 0 black, -0.03em -0.03em 0 black, -0.03em 0.08em 0 black,
+    -0.03em 0 0 black;
+  line-height: 2;
+  font-size: 64px;
+  letter-spacing: 5px;
+  font-family: "Luckiest Guy", sans-serif;
+}
+
+.splash-title span {
+  background: linear-gradient(to right, #eb3349, #f45c43) no-repeat right bottom;
+  background-size: 0px 5px;
+  transition: background-size 1200ms;
+}
+
+.splash-title span:hover {
+  background-position-x: left;
+  background-size: 100% 5px;
+}
+
+.three {
+  display: flex;
+  flex-flow: column nowrap;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.canvas {
+  width: 40% !important;
+  max-width: 300px !important;
+  cursor: pointer;
+}
+
+.temp {
+  width: 100vw;
+  height: 50vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  background: linear-gradient(90deg, #edc0bf 0, #c4caef 58%);
+}
+
+.login {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  background: linear-gradient(90deg, #edc0bf 0, #c4caef 58%);
+}
+
+.bg {
+  position: absolute;
+  bottom: 10px;
+  height: 500px;
+}
+
+@media screen and (max-height: 414px) {
+  .bg {
+    bottom: 100px;
+    height: 400px;
+  }
+}
+
+@media screen and (max-height: 375px) {
+  .bg {
+    bottom: 75px;
+    height: 400px;
+  }
+}
+
+.glass {
+  width: 100%;
+  max-width: 430px;
+  background: rgba(255, 255, 255, 0.7);
+  height: 700px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 998;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 35px 0 0 35px;
+}
+
+.icon {
+  width: 35px;
+  padding-right: 15px;
+  padding-top: 2px;
+}
+
+.title span {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: black;
+  font-family: "VT323", sans-serif;
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.slogan {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px !important;
+  margin-bottom: 0px !important;
+}
+
+.slogan span {
+  margin: auto;
+  padding-bottom: 1px;
+  overflow-wrap: break-word;
+  color: black;
+  font-family: "VT323";
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: linear-gradient(to right, #e01f2d, #943c22) no-repeat left bottom;
+  background-size: 0px 2px;
+  transition: background-size 1200ms;
+}
+
+.slogan span:hover {
+  background-position-x: left;
+  background-size: 100% 2px;
+}
+
+.wave {
+  animation-name: wave-animation;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+  transform-origin: 70% 70%;
+  display: inline-block;
+  @keyframes wave-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(14deg);
+    }
+    20% {
+      transform: rotate(-8deg);
+    }
+    30% {
+      transform: rotate(14deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+    60% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+}
+
+.login-container {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 45px;
+}
+
+.email-container,
+.password-container,
+.signin-container,
+.google-signin-container {
+  display: flex;
+  flex-direction: column;
+  width: 72%;
+}
+
+.email-container {
+  margin-bottom: 20px;
+}
+
+.email-form,
+.password-form {
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.7);
+  border: none !important;
+}
+
+.email-input,
+.password-input {
+  padding-right: 18px !important;
+}
+
+.email-input input,
+.password-input input {
+  overflow-wrap: break-word !important;
+  font-family: "VT323", sans-serif !important;
+  white-space: nowrap !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  padding: 12px 0 12px 20px !important;
+  margin: 4.5px 0 4.5px 0 !important;
+}
+
+.other-container {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 32px;
+}
+
+.switch {
+  padding: 10px !important;
+}
+
+.MuiFormControlLabel-label {
+  color: rgba(0, 0, 0, 0.8) !important;
+  font-family: "VT323", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  text-align: left !important;
+}
+
+.login-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 36px;
+}
+
+.login-button {
+  background: linear-gradient(90deg, #0093e9 0, #6284ff 62%) !important;
+  color: #ffffff !important;
+  font-size: 20px !important;
+  font-family: "VT323", sans-serif !important;
+  letter-spacing: 2px !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  height: 52px !important;
+  border-radius: 8px !important;
+}
+
+.login-button:hover {
+  transform: scale(1.02);
+}
+
+.bottom-line-container {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+}
+
+.bottom-line {
+  width: 70%;
+  border-bottom: 1px solid #d6c4c4;
+  margin: 35px 0 35px 0;
+}
+
+.continue {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: rgba(0, 0, 0, 0.7);
+  font-family: "VT323", sans-serif;
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+  margin: 0 8px 0 8px;
+}
+
+.google-signin-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.google-sign-in-button {
+  background-color: rgba(241, 225, 225, 0.9) !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+}
+
+.google-sign-in-button:hover {
+  transform: scale(1.02);
+}
+
