@@ -1,7 +1,9 @@
 import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
 import HomeIcon from "@mui/icons-material/Home";
+import RedeemIcon from "@mui/icons-material/Redeem";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const BottomNavbar = () => {
@@ -46,10 +48,11 @@ const BottomNavbar = () => {
             alignItems: "center",
           }}
         >
-          <HomeIcon sx={{ width: "30px", height: "30px" }} />
-          {/* <Typography variant='caption'>
-            HOME
-          </Typography> */}
+          {isHomeSelected ? (
+            <RedeemIcon sx={{ width: "30px", height: "30px" }} />
+          ) : (
+            <HomeIcon sx={{ width: "30px", height: "30px" }} />
+          )}
         </Box>
       </IconButton>
 
@@ -71,10 +74,11 @@ const BottomNavbar = () => {
             alignItems: "center",
           }}
         >
-          <ManageAccountsIcon sx={{ width: "30px", height: "30px" }} />
-          {/* <Typography variant='caption'>
-            PROFILE
-          </Typography> */}
+          {isProfileSelected ? (
+            <EmojiPeopleIcon sx={{ width: "30px", height: "30px" }} />
+          ) : (
+            <ManageAccountsIcon sx={{ width: "30px", height: "30px" }} />
+          )}
         </Box>
       </IconButton>
     </Box>

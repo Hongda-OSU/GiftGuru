@@ -18,12 +18,14 @@ import {
   Typography,
   Container,
   Divider,
+  Avatar,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
 
 const ProfilePage = () => {
+  const [user] = useAuthState();
   const navigate = useNavigate();
 
   const signout = () => {
@@ -36,7 +38,6 @@ const ProfilePage = () => {
       });
   };
   return (
-
     <Box
       sx={{
         display: "flex",
@@ -54,8 +55,44 @@ const ProfilePage = () => {
           style={{ marginTop: "70px", marginBottom: "70px" }}
         >
           <Box sx={{ minWidth: 200 }}>
-          Profile
-      <button onClick={() => signout()}>SignOut</button>
+            {user ? (
+              <Box sx={{ minWidth: 200 }}>
+                  <Avatar
+                    alt={user.displayName || "User"}
+                    src={user.photoURL}
+                    sx={{ width: 100, height: 100 }}
+                  />
+                  <Box sx={{ my: 2, mx: 1 }}>
+                    <Typography variant="subtitle1">
+                      {user.displayName || "User"}
+                    </Typography>
+                    <Typography variant="subtitle2">
+                      Email: {user.email}
+                    </Typography>
+                </Box>
+                <Box sx={{ my: 2 }}>
+                  <Button
+                    variant="contained"
+                    onClick={() => signout()}
+                    sx={{
+                      borderRadius: 2,
+                      width: "auto",
+                      background: "linear-gradient(45deg, #00b859, #007580)",
+                      "&:hover": {
+                        transform: "scale(1.02)",
+                        filter: "brightness(1.1)",
+                      },
+                    }}
+                  >
+                    SIGN OUT
+                  </Button>
+                </Box>
+              </Box>
+            ) : (
+              <Typography variant="subtitle1">
+                No user is currently signed in.
+              </Typography>
+            )}
           </Box>
         </Container>
       </div>
