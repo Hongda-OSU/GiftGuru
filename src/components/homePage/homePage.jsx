@@ -22,35 +22,29 @@ import Header from "../header/header";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-
 const HomePage = ({}) => {
-
   const navigate = useNavigate();
-  
+
   const [sliderValue, setSliderValue] = React.useState([20, 40]);
   const handleSliderChange = (event) => {
-
     setSliderValue(event.target.value);
   };
 
   const [ageValue, setAgeValue] = React.useState("");
   const handleAgeChange = (event) => {
-
     setAgeValue(event.target.value);
   };
 
   const [relationshipValue, setRelationshipValue] = React.useState("");
   const handleRelationshipChange = (event) => {
-
     setRelationshipValue(event.target.value);
   };
 
-  const [genderValue, setGenderValue] = useState('');
+  const [genderValue, setGenderValue] = useState("");
   const handleGenderChange = (event) => {
-
     setGenderValue(event.target.value);
   };
-  
+
   return (
     <Box
       sx={{
@@ -66,7 +60,7 @@ const HomePage = ({}) => {
       <div>
         <Container
           maxWidth="sm"
-          style={{ marginTop: "70px", marginBottom: "70px" }}
+          style={{ marginTop: "60px", marginBottom: "70px" }}
         >
           <Box sx={{ minWidth: 200 }}>
             <FormControl fullWidth sx={{ my: 2 }}>
@@ -81,13 +75,13 @@ const HomePage = ({}) => {
 
             <Divider sx={{ my: 1 }} />
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
                 Recipient gender
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mb: 2 }}>
               <InputLabel id="demo-simple-select-label">
                 Select gender
               </InputLabel>
@@ -104,20 +98,20 @@ const HomePage = ({}) => {
               </Select>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
                 Recipient age range
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mb: 2 }}>
               <InputLabel id="age-range-select-label">
                 Select age range
               </InputLabel>
               <Select
                 labelId="age-range-select-label"
                 id="age-range-select"
-                value={ageValue} 
+                value={ageValue}
                 label="Age Range"
                 onChange={handleAgeChange}
               >
@@ -131,13 +125,13 @@ const HomePage = ({}) => {
               </Select>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
                 Relationship with recipient
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mb: 2 }}>
               <InputLabel id="demo-simple-select-label">
                 Select relationship
               </InputLabel>
@@ -167,7 +161,7 @@ const HomePage = ({}) => {
             <Stack
               spacing={2}
               direction="row"
-              sx={{ mb: 1 }}
+              sx={{ mb: 2 }}
               alignItems="center"
             >
               <p>$0</p>
@@ -192,24 +186,26 @@ const HomePage = ({}) => {
               <p>$1000</p>
             </Stack>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
                 Any other information
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth sx={{ textAlign: "center", mb: 2 }}>
+            <FormControl fullWidth sx={{ textAlign: "center", mb: 4 }}>
               <InputLabel
                 id="demo-simple-select-label"
                 sx={{ textAlign: "center" }}
               ></InputLabel>
               <TextField
-                id="outlined-basic"
-                label=""
+                id="outlined-multiline-flexible"
+                label="Enter Additional Information"
+                multiline
+                minRows={1}
+                maxRows={5}
                 variant="outlined"
                 placeholder="Enter Additional Information"
                 sx={{
-                  height: "50px",
                   width: "100%",
                   margin: "0 auto",
                 }}
