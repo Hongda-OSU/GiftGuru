@@ -19,6 +19,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import LoginIcon from "@mui/icons-material/Login";
 import "./loginPage.less";
 
 const LoginPage = () => {
@@ -36,6 +37,11 @@ const LoginPage = () => {
 
   const [user] = useAuthState();
   const navigate = useNavigate();
+
+  const fillInTestAccount = () => {
+    setEmail("test1@example.com");
+    setPassword("111111");
+  };
 
   useEffect(() => {
     if (user) {
@@ -189,11 +195,20 @@ const LoginPage = () => {
               control={<Switch defaultChecked className="switch" />}
               label="Remember me"
             />
+            <LoginIcon
+              variant="text"
+              disableRipple
+              className="beta-account-button"
+              onClick={fillInTestAccount}
+            >
+              beta
+            </LoginIcon>
           </div>
           <div className="login-container">
             <Button
               variant="contained"
               className="login-button"
+              onClick={() => signInWithEmailPassword(email, password)}
               sx={{ width: "300px" }}
             >
               Login
