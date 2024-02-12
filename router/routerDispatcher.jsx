@@ -9,8 +9,8 @@ const RouteDispatcher = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate replace to="/home" />} />
-        <Route path="/login" element={<LoginPage />} /> 
+        <Route path="/" element={<Navigate replace to="/login" />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/recommendations" element={<RecommendationsPage />} />

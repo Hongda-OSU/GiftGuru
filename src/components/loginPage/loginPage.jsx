@@ -3,6 +3,12 @@ import { motion } from "framer-motion";
 import Gift from "./gift";
 import { Canvas } from "@react-three/fiber";
 import { Environment, CameraShake } from "@react-three/drei";
+import {
+  signInWithGoogle,
+  signInWithEmailPassword,
+  useAuthState,
+} from "../../../utilities/firebaseUtils";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Switch from "@mui/material/Switch";
 import IconButton from "@mui/material/IconButton";
@@ -27,6 +33,15 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (e) => e.preventDefault();
+
+  const [user] = useAuthState();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -190,7 +205,11 @@ const LoginPage = () => {
             <span className="bottom-line" />
           </div>
           <div className="google-signin-container">
-            <Button variant="contained" className="google-sign-in-button">
+            <Button
+              variant="contained"
+              className="google-sign-in-button"
+              onClick={signInWithGoogle}
+            >
               <img src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgGoogle.svg" />
             </Button>
           </div>
