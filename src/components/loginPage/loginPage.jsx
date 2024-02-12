@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect, Suspense } from "react";
+import { motion } from "framer-motion";
 import Gift from "./gift";
 import { Canvas } from "@react-three/fiber";
 import { Environment, CameraShake } from "@react-three/drei";
@@ -26,10 +27,6 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (e) => e.preventDefault();
-  const fillInTestAccount = () => {
-    setEmail("test@example.com");
-    setPassword("testpassword");
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,13 +50,18 @@ const LoginPage = () => {
           <div></div>
         </div>
         <div className="two">
-          <h2 className="splash-title">
+          <motion.h2
+            className="splash-title"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+          >
             <span>
               GIFT&nbsp;&nbsp;&nbsp;
               <br />
               &nbsp;&nbsp;&nbsp;GURU
             </span>
-          </h2>
+          </motion.h2>
         </div>
         <div className="three">
           <Canvas
@@ -88,10 +90,6 @@ const LoginPage = () => {
               )}
             </Suspense>
           </Canvas>
-          <div className="click-me" style={{ opacity: isHovered ? 1 : 0 }}>
-            <span>CLICK</span>
-            <span>&nbsp;&nbsp;ME!</span>
-          </div>
         </div>
       </div>
       <div className="temp"></div>
@@ -129,7 +127,9 @@ const LoginPage = () => {
                   endAdornment={
                     <InputAdornment position="end">
                       <IconButton edge="end">
-                        <AccountCircleIcon sx={{ color: "#2485ff" }} />
+                        <AccountCircleIcon
+                          sx={{ color: "rgba(36,133,255, 0.7)" }}
+                        />
                       </IconButton>
                     </InputAdornment>
                   }
@@ -156,9 +156,11 @@ const LoginPage = () => {
                         edge="end"
                       >
                         {showPassword ? (
-                          <VisibilityOff sx={{ color: "#d32f2f" }} />
+                          <VisibilityOff
+                            sx={{ color: "rgba(211,47,47, 0.7)" }}
+                          />
                         ) : (
-                          <Visibility sx={{ color: "#2485ff" }} />
+                          <Visibility sx={{ color: "rgba(36,133,255, 0.7)" }} />
                         )}
                       </IconButton>
                     </InputAdornment>
@@ -166,6 +168,31 @@ const LoginPage = () => {
                 />
               </FormControl>
             </div>
+          </div>
+          <div className="other-container">
+            <FormControlLabel
+              control={<Switch defaultChecked className="switch" />}
+              label="Remember me"
+            />
+          </div>
+          <div className="login-container">
+            <Button
+              variant="contained"
+              className="login-button"
+              sx={{ width: "300px" }}
+            >
+              Login
+            </Button>
+          </div>
+          <div className="bottom-line-container">
+            <span className="bottom-line" />
+            <span className="continue">Or continue with</span>
+            <span className="bottom-line" />
+          </div>
+          <div className="google-signin-container">
+            <Button variant="contained" className="google-sign-in-button">
+              <img src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgGoogle.svg" />
+            </Button>
           </div>
         </div>
       </div>

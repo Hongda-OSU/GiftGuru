@@ -1,13 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@800&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");
-@import url(https://fonts.googleapis.com/css?family=VT323);
-
-@font-face {
-  font-family: "Gilroy";
-  src: url("https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgGilroy-Regular.ttf");
-  font-display: swap;
-}
+@import url("https://fonts.googleapis.com/css?family=VT323");
 
 .splash {
   width: 100vw;
@@ -42,8 +34,8 @@
     -0.03em 0 0 black;
   line-height: 2;
   font-size: 64px;
-  letter-spacing: 1.5px;
-  font-family: "Inter", sans-serif;
+  letter-spacing: 5px;
+  font-family: "Luckiest Guy", sans-serif;
 }
 
 .splash-title span {
@@ -68,56 +60,8 @@
 
 .canvas {
   width: 40% !important;
+  max-width: 300px !important;
   cursor: pointer;
-}
-
-.click-me {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: fit-content;
-  color: #fff;
-  font-size: 24px;
-  font-family: "Inter", sans-serif;
-  text-shadow: 0 0.1em 20px black, 0.05em -0.03em 0 black,
-    0.05em 0.005em 0 black, 0em 0.08em 0 black, 0.05em 0.08em 0 black,
-    0px -0.03em 0 black, -0.03em -0.03em 0 black, -0.03em 0.08em 0 black,
-    -0.03em 0 0 black;
-  transition: opacity 0.5s ease-in-out;
-  opacity: 0;
-  span {
-    transform: scale(0.9);
-    display: inline-block;
-  }
-  span:first-child {
-    animation: bop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards infinite
-      alternate;
-  }
-  span:last-child {
-    animation: bopB 1s 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards
-      infinite alternate;
-  }
-}
-
-@keyframes bop {
-  0% {
-    transform: scale(0.9);
-  }
-  50%,
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes bopB {
-  0% {
-    transform: scale(0.9);
-  }
-  80%,
-  100% {
-    transform: scale(1) rotateZ(-3deg);
-  }
 }
 
 .temp {
@@ -172,7 +116,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  z-index: 999;
+  z-index: 998;
 }
 
 .title {
@@ -192,9 +136,9 @@
   width: fit-content;
   overflow-wrap: break-word;
   color: black;
-  font-family: "Concert One", sans-serif;
+  font-family: "VT323", sans-serif;
   font-size: 26px;
-  font-weight: 400;
+  font-weight: bold;
   text-align: center;
   white-space: nowrap;
 }
@@ -203,7 +147,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 30px !important;
+  margin-top: 20px !important;
   margin-bottom: 0px !important;
 }
 
@@ -267,7 +211,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 35px;
+  padding-top: 45px;
 }
 
 .email-container,
@@ -299,74 +243,105 @@
 .email-input input,
 .password-input input {
   overflow-wrap: break-word !important;
-  font-family: "Gilroy", sans-serif !important;
+  font-family: "VT323", sans-serif !important;
   white-space: nowrap !important;
-  font-size: 15px !important;
+  font-size: 18px !important;
   font-weight: 600 !important;
   padding: 12px 0 12px 20px !important;
   margin: 4.5px 0 4.5px 0 !important;
 }
 
-// .other-service-container {
-//   width: 70%;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   align-items: center;
-//   margin: 30px 0 60px 0;
-// }
+.other-container {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 32px;
+}
 
-// .switch {
-//   padding: 10px !important;
-// }
+.switch {
+  padding: 10px !important;
+}
 
-// .MuiFormControlLabel-label {
-//   color: rgba(22, 22, 22, 1) !important;
-//   font-family: "Roboto", sans-serif !important;
-//   font-size: 13px !important;
-//   font-weight: 400 !important;
-//   text-align: left !important;
-//   margin-top: 2px !important;
-// }
+.MuiFormControlLabel-label {
+  color: rgba(0, 0, 0, 0.8) !important;
+  font-family: "VT323", sans-serif !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+  text-align: left !important;
+}
 
-// .beta-account-button {
-//   padding: 0 !important;
-//   color: #007aff !important;
-//   font-size: 12px !important;
-//   font-family: "Roboto", sans-serif !important;
-//   font-weight: 400 !important;
-//   text-align: left !important;
-//   text-transform: none !important;
-// }
+.login-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 36px;
+}
 
-// .sign-in-button {
-//   background-color: #007aff !important;
-//   color: #ffffff !important;
-//   font-size: 16px !important;
-//   font-family: "Roboto", sans-serif !important;
-//   letter-spacing: 2px !important;
-//   font-weight: 400 !important;
-//   text-transform: none !important;
-//   height: 55px !important;
-//   border-radius: 10px !important;
-// }
+.login-button {
+  background: linear-gradient(90deg, #0093e9 0, #6284ff 62%) !important;
+  color: #ffffff !important;
+  font-size: 20px !important;
+  font-family: "VT323", sans-serif !important;
+  letter-spacing: 2px !important;
+  font-weight: 400 !important;
+  text-transform: none !important;
+  height: 52px !important;
+  border-radius: 8px !important;
+}
 
-// .bottom-line {
-//   width: 70%;
-//   border-bottom: 1px solid #dfdfdf;
-//   margin: 45px 0 45px 0;
-// }
+.login-button:hover {
+  transform: scale(1.02);
+}
 
-// .google-sign-in-button {
-//   background-color: #272525 !important;
-//   height: 55px !important;
-//   border-radius: 10px !important;
-// }
+.bottom-line-container {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+}
 
-// .google-signin {
-//   font-size: 16px !important;
-//   font-family: "Roboto", sans-serif !important;
-//   font-weight: 400 !important;
-//   text-transform: none !important;
-//   margin: 2px 0 0 10px !important;
-// }
+.bottom-line {
+  width: 70%;
+  border-bottom: 1px solid #d6c4c4;
+  margin: 35px 0 35px 0;
+}
+
+.continue {
+  width: fit-content;
+  overflow-wrap: break-word;
+  color: rgba(0, 0, 0, 0.7);
+  font-family: "VT323", sans-serif;
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
+  white-space: nowrap;
+  margin: 0 8px 0 8px;
+}
+
+.google-signin-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.google-sign-in-button {
+  background-color: rgba(241, 225, 225, 0.9) !important;
+  height: 60px !important;
+  border-radius: 50% !important;
+}
+
+.google-sign-in-button:hover {
+  transform: scale(1.02);
+}
+
