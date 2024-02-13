@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./homePage.css";
 import {
   Slider,
@@ -14,13 +14,42 @@ import {
   Typography,
   Container,
   Divider,
+  Card,
 } from "@mui/material";
 
 import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
-import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import OpenAI from "openai";
+
+const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
+
+const openai = new OpenAI({
+  apiKey: openaiApiKey,
+  dangerouslyAllowBrowser: true,
+  organization: "org-e8a4OqaRbXH1rSndFxTMj8KJ",
+});
+
+const getGPTRequests = async (
+  sliderValue,
+  ageValue,
+  relationshipValue,
+  genderValue,
+  moreInfo
+) => {
+  const message = `Analyze styles and preferences to suggest the perfect, stress-free gift 
+                  based on the following information about the person receiving this gift:
+                  Budget Range: ${sliderValue}, Age Range: ${ageValue}, Who am I giving it to: ${relationshipValue}, Gender: ${genderValue}, Details: ${moreInfo}, 
+                  give me recommendation in 100 words using this following format: Recommended Product: \nDescription:  \n`;
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo-16k",
+    messages: [{ role: "user", content: message }],
+    temperature: 2,
+    max_tokens: 200,
+  });
+  return response;
+};
 
 const HomePage = ({}) => {
   const navigate = useNavigate();
@@ -43,6 +72,42 @@ const HomePage = ({}) => {
   const [genderValue, setGenderValue] = useState("");
   const handleGenderChange = (event) => {
     setGenderValue(event.target.value);
+  };
+
+  const [moreInfo, setMoreInfo] = useState("");
+
+  const [recommendation, setRecommendation] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleGeneratePlan = async () => {
+    setLoading(true);
+    const response = await getGPTRequests(
+      sliderValue,
+      ageValue,
+      relationshipValue,
+      genderValue,
+      moreInfo
+    );
+    setRecommendation(response.choices[0].message.content);
+    setLoading(false);
+    setIsPlanGenerated(true);
+  };
+
+  const [isPlanGenerated, setIsPlanGenerated] = useState(false);
+
+  const Loader = () => {
+    const [text, setText] = useState("");
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setText((prevText) => {
+          if (prevText.length === 3) {
+            return "";
+          }
+          return prevText + ".";
+        });
+      }, 300);
+      return () => clearInterval(interval);
+    }, []);
+    return <h4>Recommendation is loading, please wait{text}</h4>;
   };
 
   return (
@@ -204,6 +269,8 @@ const HomePage = ({}) => {
                 minRows={1}
                 maxRows={5}
                 variant="outlined"
+                value={moreInfo}
+                onChange={(event) => setMoreInfo(event.target.value)}
                 placeholder="Enter Additional Information"
                 sx={{
                   width: "100%",
@@ -217,11 +284,12 @@ const HomePage = ({}) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                mb: 3,
               }}
             >
               <Button
                 variant="contained"
-                onClick={() => navigate("/recommendations")}
+                onClick={handleGeneratePlan}
                 sx={{
                   borderRadius: 50,
                   width: "100%",
@@ -232,9 +300,21 @@ const HomePage = ({}) => {
                   },
                 }}
               >
-                Get Recommendations
+                {isPlanGenerated
+                  ? "Want a different one"
+                  : "Get Recommendations"}
               </Button>
             </FormControl>
+
+            {loading && <Loader sx={{ mb: 2 }} />}
+
+            {recommendation && (
+              <Box sx={{ minWidth: 200, mb: 2 }}>
+                <Card>
+                  <div>{recommendation}</div>
+                </Card>
+              </Box>
+            )}
           </Box>
         </Container>
       </div>
