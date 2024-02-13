@@ -24,9 +24,13 @@ import "./loginPage.less";
 
 const LoginPage = () => {
   const loginRef = useRef(null);
+  const splashRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const scrollToLogin = () => {
     loginRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const scrollToSpalsh = () => {
+    splashRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +70,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="splash">
+      <div ref={splashRef} className="splash">
         <div className="one">
           <div></div>
         </div>
@@ -111,6 +115,15 @@ const LoginPage = () => {
               )}
             </Suspense>
           </Canvas>
+          <motion.img
+            src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgdepositphotos_248717686-stock-illustration-sticker-of-a-cartoon-click.png"
+            className="click-me"
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{
+              repeat: Infinity,
+              duration: 1.2,
+            }}
+          />
         </div>
       </div>
       <div className="temp"></div>
@@ -197,7 +210,6 @@ const LoginPage = () => {
             />
             <LoginIcon
               variant="text"
-              disableRipple
               className="beta-account-button"
               onClick={fillInTestAccount}
             >
@@ -227,6 +239,11 @@ const LoginPage = () => {
             >
               <img src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgGoogle.svg" />
             </Button>
+          </div>
+          <div className="arrow-container" onClick={() => scrollToSpalsh()}>
+            <div class="scroll-arrow"></div>
+            <div class="scroll-arrow"></div>
+            <div class="scroll-arrow"></div>
           </div>
         </div>
       </div>

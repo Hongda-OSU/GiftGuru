@@ -24,7 +24,7 @@ const Gift = (props) => {
       ref={giftRef}
       {...props}
       dispose={null}
-      scale={10}
+      scale={8}
       rotation={[0, 0, 0]}
       onPointerOver={() => onHover(true)}
       onPointerOut={() => onHover(false)}
