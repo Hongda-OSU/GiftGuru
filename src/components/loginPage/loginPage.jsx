@@ -115,7 +115,7 @@ const LoginPage = () => {
               )}
             </Suspense>
           </Canvas>
-          <motion.img
+          {/* <motion.img
             src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/imgdepositphotos_248717686-stock-illustration-sticker-of-a-cartoon-click.png"
             className="click-me"
             animate={{ rotate: [0, 10, -10, 0] }}
@@ -123,7 +123,7 @@ const LoginPage = () => {
               repeat: Infinity,
               duration: 1.2,
             }}
-          />
+          /> */}
         </div>
       </div>
       <div className="temp"></div>
@@ -241,9 +241,9 @@ const LoginPage = () => {
             </Button>
           </div>
           <div className="arrow-container" onClick={() => scrollToSpalsh()}>
-            <div class="scroll-arrow"></div>
-            <div class="scroll-arrow"></div>
-            <div class="scroll-arrow"></div>
+            <div className="scroll-arrow"></div>
+            <div className="scroll-arrow"></div>
+            <div className="scroll-arrow"></div>
           </div>
         </div>
       </div>
