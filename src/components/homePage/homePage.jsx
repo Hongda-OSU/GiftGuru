@@ -23,7 +23,7 @@ import Header from "../header/header";
 import { useNavigate, useLocation } from "react-router-dom";
 import OpenAI from "openai";
 
-const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
+const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY || "";
 
 const openai = new OpenAI({
   apiKey: openaiApiKey,
