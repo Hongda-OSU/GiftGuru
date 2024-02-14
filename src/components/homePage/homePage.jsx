@@ -38,18 +38,14 @@ const getGPTRequests = async (
   genderValue,
   moreInfo
 ) => {
-  const message = `Analyze styles and preferences to suggest the perfect, stress-free gift 
-                  based on the following information about the person receiving this gift:
-                  Budget Range: ${sliderValue}, Age Range: ${ageValue}, Who am I giving it to: ${relationshipValue}, Gender: ${genderValue}, Details: ${moreInfo}, 
-                  give me 3 products with names and a short description for each product in 50 words using this following format: 
-                  Recommended Product1: name of product1, Description:
-                  Recommended Product2: name of product2, Description:
-                  Recommended Product3: name of product3, Description: `;
+  const message = `Give me 3 shopping items like books and cups based on information about the person receiving these items:
+                  Budget Range: ${sliderValue}, Age Range: ${ageValue}, Who am I giving it to: ${relationshipValue}, Gender: ${genderValue}, Details: ${moreInfo}.
+                  In the format like this: item 1: , item 2: , item 3:`;
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo-16k",
     messages: [{ role: "user", content: message }],
     temperature: 2,
-    max_tokens: 1000,
+    max_tokens: 100,
   });
   return response;
 };
