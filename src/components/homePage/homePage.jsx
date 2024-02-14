@@ -124,7 +124,7 @@ const HomePage = ({}) => {
       <div>
         <Container
           maxWidth="sm"
-          style={{ marginTop: "65px", marginBottom: "75px" }}
+          style={{ marginTop: "65px"}}
         >
           <Box sx={{ minWidth: 200 }}>
             <FormControl fullWidth sx={{ my: 2 }}>
