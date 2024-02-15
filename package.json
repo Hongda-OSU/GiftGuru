@@ -20,6 +20,7 @@
     "@mui/material": "^5.15.10",
     "@react-three/drei": "^9.97.3",
     "@react-three/fiber": "^8.15.16",
+    "axios": "^1.6.7",
     "firebase": "^10.8.0",
     "framer-motion": "^11.0.3",
     "less": "^4.2.0",

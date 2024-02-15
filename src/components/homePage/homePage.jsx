@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./homePage.css";
 import {
   Slider,
@@ -10,73 +11,32 @@ import {
   Box,
   TextField,
   Button,
-  Grid,
   Typography,
   Container,
   Divider,
-  Card,
 } from "@mui/material";
 
 import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
 import { useNavigate, useLocation } from "react-router-dom";
-//import OpenAI from "openai";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const geminiAPIKey = import.meta.env.VITE_GEMINI_API_KEY || apiKey || "";
-/*
-const openai = new OpenAI({
-  apiKey: openaiApiKey,
-  dangerouslyAllowBrowser: true,
-  organization: "org-y9B1VFvuzhsYHcpG3KJWqvKR",
-});*/
-const gemini = new GoogleGenerativeAI(geminiAPIKey);
-const geminiModel = gemini.getGenerativeModel({ model: "gemini-pro-vision" });
-
-function fileToGenerativePart(content, mimeType) {
-  return {
-    inlineData: {
-      data: content,
-      mimeType,
-    },
-  };
-}
-const readFileAsBase64 = (file) => {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      resolve(reader.result.split(",")[1]);
-    };
-    reader.readAsDataURL(file);
+const getGeminiRequests = async (images) => {
+  const imageData = new FormData();
+  images.forEach((img) => {
+    imageData.append("images", img);
   });
-};
-
-const getGeminiRequests = async (
-  sliderValue,
-  ageValue,
-  relationshipValue,
-  genderValue,
-  moreInfo,
-  images
-) => {
-  /*const message = `Analyze styles and preferences to suggest the perfect, stress-free gift 
-                  based on the following information about the person receiving this gift:
-                  Budget Range: ${sliderValue}, Age Range: ${ageValue}, Who am I giving it to: ${relationshipValue}, Gender: ${genderValue}, Details: ${moreInfo}, 
-                  give me 3 products with names and a short description for each product in 50 words using this following format: 
-                  Recommended Product1: name of Product1\n
-                  Recommended Product2: name of Product2\n
-                  Recommended Product3: name of Product3.\n Also, use the uploaded images, if any is provided with text-based input, for choosing most suitable gifts for recommendation that is similar to the images' vibes!`;*/
-  const message = `Can you give me set of product tags that relates to inputted images, the maximum tags you can give is 10?`
-  //convert image files into format acceptable by gemini! 
-  const convImages = await Promise.all(
-      images.map(async img => {
-        const curFileContent = await readFileAsBase64(img);
-        return fileToGenerativePart(curFileContent, img.type);
-      })
+  const res = await axios.post(
+    "http://giftgurubackend.eba-jurpbazj.us-east-2.elasticbeanstalk.com/gemini",
+    imageData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
   );
-  const res = await geminiModel.generateContent([message, ...convImages]);
-  return await res.response.text().split(":");
+  const text = res.data.text;
+  return text.split(":");
 };
 
 const HomePage = ({}) => {
@@ -87,7 +47,7 @@ const HomePage = ({}) => {
   const handleImagesChange = (newFiles) => {
     setImages((prevFiles) => [...prevFiles, ...newFiles]);
   };
-  const [sliderValue, setSliderValue] = React.useState([10, 100]);
+  const [sliderValue, setSliderValue] = React.useState([30, 100]);
   const handleSliderChange = (event, newValue) => {
     if (newValue[1] - newValue[0] >= 10) {
       setSliderValue(newValue);
@@ -116,14 +76,7 @@ const HomePage = ({}) => {
   const [recommendation, setRecommendation] = useState("");
   const handleGeneratePlan = async () => {
     setLoading(true);
-    const response = await getGeminiRequests(
-      sliderValue,
-      ageValue,
-      relationshipValue,
-      genderValue,
-      moreInfo,
-      images
-    );
+    const response = await getGeminiRequests(images);
     setLoading(false);
     navigate("/recommendations", {
       state: {
@@ -336,22 +289,6 @@ const HomePage = ({}) => {
               />
             </FormControl>
 
-            <FormControl fullWidth sx={{ textAlign: "center", mb: 2 }}>
-              <InputLabel
-                id="demo-simple-select-label"
-                sx={{ textAlign: "center" }}
-              ></InputLabel>
-              <TextField
-                label="Gemini API Key"
-                variant="outlined"
-                margin="normal"
-                size="small"
-                fullWidth
-                value={apiKey}
-                onChange={(event) => setApiKey(event.target.value)}
-              />
-            </FormControl>
-
             <FormControl
               sx={{
                 display: "flex",
@@ -366,6 +303,7 @@ const HomePage = ({}) => {
                 sx={{
                   borderRadius: 50,
                   width: "100%",
+                  marginTop: "20px",
                   background: "linear-gradient(45deg, #00b859, #007580)",
                   "&:hover": {
                     transform: "scale(1.02)",
