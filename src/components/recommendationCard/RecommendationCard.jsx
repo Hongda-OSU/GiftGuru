@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardActions,
+  Grid,
   Button,
   Typography,
   Dialog,
@@ -10,14 +11,13 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import Grid from "@mui/system/Unstable_Grid";
+
 const RecommendationCard = ({ pair }) => {
-  console.log(`curPair: \n`);
-  console.log(pair);
   const [isDescOpen, setIsDescOpen] = useState(false);
   const toggleDesc = () => {
     setIsDescOpen((prev) => !prev);
   };
+  
   return (
     <Grid xs={6}>
       <Card sx={{ border: 1, maxWidth: 200 }}>
