@@ -13,8 +13,11 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
+    "@google/generative-ai": "^0.2.1",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.15.9",
-    "@mui/material": "^5.15.9",
+    "@mui/material": "^5.15.10",
     "@react-three/drei": "^9.97.3",
     "@react-three/fiber": "^8.15.16",
     "firebase": "^10.8.0",
@@ -35,7 +38,7 @@
     "@vitest/ui": "^1.0.4",
     "c8": "^8.0.1",
     "jsdom": "^23.0.1",
-    "vite": "^5.0.8",
+    "vite": "^5.1.1",
     "vitest": "^1.0.4"
   }
 }

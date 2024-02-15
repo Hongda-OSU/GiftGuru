@@ -22,9 +22,8 @@ const thumbStyle = {
   position: "relative",
 };
 
-const DropzoneAreaExample = () => {
+const DropzoneAreaExample = ({handleImagesChange}) => {
   const [files, setFiles] = useState([]);
-
   const onDrop = useCallback(
     (acceptedFiles) => {
       const newUniqueFiles = acceptedFiles.filter(
@@ -40,8 +39,9 @@ const DropzoneAreaExample = () => {
         );
 
       setFiles((prevFiles) => [...prevFiles, ...newFilesToAdd]);
+      handleImagesChange(newFilesToAdd); 
     },
-    [files]
+    [files, handleImagesChange]
   );
 
   const removeFile = (event, fileName) => {
