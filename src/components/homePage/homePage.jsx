@@ -27,7 +27,7 @@ const getGeminiRequests = async (images) => {
     imageData.append("images", img);
   });
   const res = await axios.post(
-    "http://giftgurubackend.eba-jurpbazj.us-east-2.elasticbeanstalk.com/gemini",
+    "https://www.giftguru.fun/gemini",
     imageData,
     {
       headers: {
