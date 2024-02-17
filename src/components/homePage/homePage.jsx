@@ -46,12 +46,15 @@ const HomePage = ({}) => {
   const [recipients, setRecipients] = useState([]);
   const [newPerson, setNewPerson] = useState("");
   const [isAddingNewPerson, setIsAddingNewPerson] = useState(false);
+  const [selectedRecipient, setSelectedRecipient] = useState("");
   const handleSelectChange = (event) => {
     if (event.target.value === "add-new") {
       setIsAddingNewPerson(true);
+      setSelectedRecipient("");
     } else {
       setNewPerson(event.target.value);
       setIsAddingNewPerson(false);
+      setSelectedRecipient(event.target.value);
     }
   };
 
@@ -100,6 +103,7 @@ const HomePage = ({}) => {
         moreInfo,
         images,
         apiKey,
+        selectedRecipient,
       },
     });
   };
@@ -125,6 +129,7 @@ const HomePage = ({}) => {
     setMoreInfo(state.moreInfo);
     setImages(state.images);
     setApiKey(state.apiKey);
+    setSelectedRecipient(state.selectedRecipient);
   };
 
   useEffect(() => {
@@ -144,6 +149,7 @@ const HomePage = ({}) => {
       return;
     }
     try {
+      setSelectedRecipient(newPerson);
       await set(recipientsRef, [...recipients, newPerson]);
       onValue(
         recipientsRef,
@@ -208,7 +214,7 @@ const HomePage = ({}) => {
               <Select
                 labelId="recipients-select-label"
                 id="recipients-select"
-                value={isAddingNewPerson ? "add-new" : newPerson}
+                value={isAddingNewPerson ? "add-new" : selectedRecipient}
                 label="Recipient Name"
                 onChange={handleSelectChange}
               >
