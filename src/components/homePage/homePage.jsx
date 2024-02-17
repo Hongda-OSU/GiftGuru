@@ -43,8 +43,17 @@ const HomePage = ({}) => {
 
   const [user] = useAuthState();
 
-  const [people, setPeople] = useState([]);
+  const [recipients, setRecipients] = useState([]);
   const [newPerson, setNewPerson] = useState("");
+  const [isAddingNewPerson, setIsAddingNewPerson] = useState(false);
+  const handleSelectChange = (event) => {
+    if (event.target.value === "add-new") {
+      setIsAddingNewPerson(true);
+    } else {
+      setNewPerson(event.target.value);
+      setIsAddingNewPerson(false);
+    }
+  };
 
   const [images, setImages] = React.useState([]);
   const handleImagesChange = (newFiles) => {
@@ -120,28 +129,32 @@ const HomePage = ({}) => {
 
   useEffect(() => {
     if (user) {
-      const peopleRef = ref(getDatabase(), `people/${user.uid}`);
-      onValue(peopleRef, (snapshot) => {
+      const recipientsRef = ref(getDatabase(), `recipients/${user.uid}`);
+      onValue(recipientsRef, (snapshot) => {
         const data = snapshot.val();
-        setPeople(data || []);
+        setRecipients(data || []);
       });
     }
-  }, [user]); 
-  
+  }, [user]);
+
   const handleAddPerson = async () => {
-    const peopleRef = ref(getDatabase(), `people/${user.uid}`);
-    if (!newPerson || people.includes(newPerson)) {
+    const recipientsRef = ref(getDatabase(), `recipients/${user.uid}`);
+    if (!newPerson || recipients.includes(newPerson)) {
       console.error("Invalid person name or already exists");
       return;
     }
     try {
-      await set(peopleRef, [...people, newPerson]);
-      onValue(peopleRef, (snapshot) => {
-        const updatedPeople = snapshot.val() || [];
-        setPeople(updatedPeople);
-      }, {
-        onlyOnce: true
-      });
+      await set(recipientsRef, [...recipients, newPerson]);
+      onValue(
+        recipientsRef,
+        (snapshot) => {
+          const updatedRecipients = snapshot.val() || [];
+          setRecipients(updatedRecipients);
+        },
+        {
+          onlyOnce: true,
+        }
+      );
     } catch (error) {
       console.error("Firebase update failed: ", error);
     }
@@ -188,46 +201,53 @@ const HomePage = ({}) => {
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth sx={{ mb: 2 }}>
-              <InputLabel id="people-select-label">Recipient Name</InputLabel>
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <InputLabel id="recipients-select-label">
+                Recipient Name
+              </InputLabel>
               <Select
-                labelId="people-select-label"
-                id="people-select"
-                value={newPerson}
+                labelId="recipients-select-label"
+                id="recipients-select"
+                value={isAddingNewPerson ? "add-new" : newPerson}
                 label="Recipient Name"
-                onChange={(e) => setNewPerson(e.target.value)}
+                onChange={handleSelectChange}
               >
-                {people.map((person, index) => (
-                  <MenuItem key={index} value={person}>
-                    {person}
+                {recipients.map((recipient, index) => (
+                  <MenuItem key={index} value={recipient}>
+                    {recipient}
                   </MenuItem>
                 ))}
+                <MenuItem value="add-new">Add New Recipient</MenuItem>
               </Select>
             </FormControl>
 
-            <TextField
-              fullWidth
-              label="Add New Person"
-              value={newPerson}
-              onChange={(e) => setNewPerson(e.target.value)}
-              sx={{ mb: 1 }}
-            />
-
-            <Button
-              fullWidth
-              variant="contained"
-              onClick={handleAddPerson}
-              sx={{
-                borderRadius: 50,
-                background: "linear-gradient(45deg, #00b859, #007580)",
-                "&:hover": {
-                  transform: "scale(1.02)",
-                  filter: "brightness(1.1)",
-                },
-              }}
-            >
-              Add New Person
-            </Button>
+            {isAddingNewPerson && (
+              <>
+                <TextField
+                  fullWidth
+                  label="New Recipient's Name"
+                  value={newPerson}
+                  onChange={(e) => setNewPerson(e.target.value)}
+                  sx={{ mb: 1 }}
+                />
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={handleAddPerson}
+                  sx={{
+                    mb: 2,
+                    borderRadius: 50,
+                    background: "linear-gradient(45deg, #00b859, #007580)",
+                    "&:hover": {
+                      transform: "scale(1.02)",
+                      filter: "brightness(1.1)",
+                    },
+                  }}
+                >
+                  Add New Recipient
+                </Button>
+              </>
+            )}
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>

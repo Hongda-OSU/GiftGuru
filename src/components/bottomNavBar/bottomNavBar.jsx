@@ -67,7 +67,7 @@ const BottomNavbar = () => {
             color: "#007580",
           },
         }}
-        onClick={() => navigate("/people")}
+        onClick={() => navigate("/recipients")}
       >
         <Box
           sx={{
