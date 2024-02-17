@@ -23,11 +23,28 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthState } from "../../../utilities/firebaseUtils";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 
-const getGeminiRequests = async (images) => {
-  const imageData = new FormData();
+const getGeminiRequests = async (
+  images,
+  sliderValue,
+  ageValue,
+  relationshipValue,
+  genderValue,
+  moreInfo
+) => {
+  const inputData = new FormData();
   images.forEach((img) => {
-    imageData.append("images", img);
+    inputData.append("images", img);
   });
+  inputData.append("sliderValue", sliderValue);
+  inputData.append("ageValue", ageValue);
+  inputData.append("relationshipValue", relationshipValue);
+  inputData.append("genderValue", genderValue);
+  inputData.append("moreInfo", moreInfo);
+  // const res = await axios.post("http://localhost:3001/gemini", inputData, {
+  //   headers: {
+  //     "Content-Type": "multipart/form-data",
+  //   },
+  // });
   const res = await axios.post("https://www.giftguru.fun/gemini", imageData, {
     headers: {
       "Content-Type": "multipart/form-data",
