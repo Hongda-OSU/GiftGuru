@@ -21,20 +21,33 @@ import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
 import { useNavigate, useLocation } from "react-router-dom";
 
-const getGeminiRequests = async (images) => {
-  const imageData = new FormData();
+const getGeminiRequests = async (
+  images,
+  sliderValue,
+  ageValue,
+  relationshipValue,
+  genderValue,
+  moreInfo
+) => {
+  const inputData = new FormData();
   images.forEach((img) => {
-    imageData.append("images", img);
+    inputData.append("images", img);
   });
-  const res = await axios.post(
-    "https://www.giftguru.fun/gemini",
-    imageData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  inputData.append("sliderValue", sliderValue);
+  inputData.append("ageValue", ageValue);
+  inputData.append("relationshipValue", relationshipValue);
+  inputData.append("genderValue", genderValue);
+  inputData.append("moreInfo", moreInfo);
+  // const res = await axios.post("http://localhost:3001/gemini", inputData, {
+  //   headers: {
+  //     "Content-Type": "multipart/form-data",
+  //   },
+  // });
+  const res = await axios.post("https://www.giftguru.fun/gemini", imageData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   const text = res.data.text;
   return text.split(":");
 };
