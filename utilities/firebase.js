@@ -5,6 +5,7 @@ import { getStorage } from "firebase/storage";
 const firebaseConfig = {
   apiKey: "AIzaSyBrFP78IO10kj5eKbOIkWoiPrTSKGEGlus",
   authDomain: "giftguru-f7599.firebaseapp.com",
+  databaseURL: "https://giftguru-f7599-default-rtdb.firebaseio.com/",
   projectId: "giftguru-f7599",
   storageBucket: "giftguru-f7599.appspot.com",
   messagingSenderId: "864266948979",

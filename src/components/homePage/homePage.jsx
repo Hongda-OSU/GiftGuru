@@ -20,21 +20,19 @@ import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuthState } from "../../../utilities/firebaseUtils";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 const getGeminiRequests = async (images) => {
   const imageData = new FormData();
   images.forEach((img) => {
     imageData.append("images", img);
   });
-  const res = await axios.post(
-    "https://www.giftguru.fun/gemini",
-    imageData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  const res = await axios.post("https://www.giftguru.fun/gemini", imageData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
   const text = res.data.text;
   return text.split(":");
 };
@@ -42,6 +40,11 @@ const getGeminiRequests = async (images) => {
 const HomePage = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [user] = useAuthState();
+
+  const [people, setPeople] = useState([]);
+  const [newPerson, setNewPerson] = useState("");
 
   const [images, setImages] = React.useState([]);
   const handleImagesChange = (newFiles) => {
@@ -116,6 +119,35 @@ const HomePage = ({}) => {
   };
 
   useEffect(() => {
+    if (user) {
+      const peopleRef = ref(getDatabase(), `people/${user.uid}`);
+      onValue(peopleRef, (snapshot) => {
+        const data = snapshot.val();
+        setPeople(data || []);
+      });
+    }
+  }, [user]); 
+  
+  const handleAddPerson = async () => {
+    const peopleRef = ref(getDatabase(), `people/${user.uid}`);
+    if (!newPerson || people.includes(newPerson)) {
+      console.error("Invalid person name or already exists");
+      return;
+    }
+    try {
+      await set(peopleRef, [...people, newPerson]);
+      onValue(peopleRef, (snapshot) => {
+        const updatedPeople = snapshot.val() || [];
+        setPeople(updatedPeople);
+      }, {
+        onlyOnce: true
+      });
+    } catch (error) {
+      console.error("Firebase update failed: ", error);
+    }
+  };
+
+  useEffect(() => {
     if (location.state) {
       setAllStatesFromLocation(location.state);
     }
@@ -149,6 +181,53 @@ const HomePage = ({}) => {
             </FormControl>
 
             <Divider sx={{ my: 1 }} />
+
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <Typography variant="body2" gutterBottom>
+                Recipient Name
+              </Typography>
+            </FormControl>
+
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <InputLabel id="people-select-label">Recipient Name</InputLabel>
+              <Select
+                labelId="people-select-label"
+                id="people-select"
+                value={newPerson}
+                label="Recipient Name"
+                onChange={(e) => setNewPerson(e.target.value)}
+              >
+                {people.map((person, index) => (
+                  <MenuItem key={index} value={person}>
+                    {person}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <TextField
+              fullWidth
+              label="Add New Person"
+              value={newPerson}
+              onChange={(e) => setNewPerson(e.target.value)}
+              sx={{ mb: 1 }}
+            />
+
+            <Button
+              fullWidth
+              variant="contained"
+              onClick={handleAddPerson}
+              sx={{
+                borderRadius: 50,
+                background: "linear-gradient(45deg, #00b859, #007580)",
+                "&:hover": {
+                  transform: "scale(1.02)",
+                  filter: "brightness(1.1)",
+                },
+              }}
+            >
+              Add New Person
+            </Button>
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
