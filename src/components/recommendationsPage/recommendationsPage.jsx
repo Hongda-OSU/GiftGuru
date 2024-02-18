@@ -1,25 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
-import { Container, Box, Typography, Card, Button } from "@mui/material";
+import {
+  Container,
+  Box,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  Button,
+  Grid,
+} from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import data from "../../../assets/itemsTest.json";
 
 const RecommendationsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  let recommendationString = "";
-  if (typeof location.state?.recommendation === 'string') recommendationString = location.state.recommendation;
-  else if (Array.isArray(location.state?.recommendation)) recommendationString = location.state.recommendation.join(" ");
-  else recommendationString = "";
-  let recommendations = recommendationString.split(/Recommended Product\d:/).filter(Boolean);
-
   const handleBack = () => {
     navigate("/home", {
       state: {
-        ...location.state, 
+        ...location.state,
       },
     });
+  };
+
+  const recommendations = data.recommendations;
+  const [visibleRange, setVisibleRange] = useState([0, 10]);
+  const handleShowMore = () => {
+    setVisibleRange([visibleRange[0] + 10, visibleRange[1] + 10]);
+  };
+  const visibleRecommendations = recommendations.slice(
+    visibleRange[0],
+    visibleRange[1]
+  );
+
+  const truncateText = (text, maxLength) => {
+    return text.length > maxLength
+      ? `${text.substring(0, maxLength)}...`
+      : text;
   };
 
   return (
@@ -28,29 +48,64 @@ const RecommendationsPage = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        height: "80vh",
+        height: "auto",
         width: "100%",
         paddingBottom: "60px",
       }}
     >
       <Header />
-      <Container
-        maxWidth="sm"
-        style={{ marginTop: "70px", marginBottom: "70px" }}
-      >
-        <Box sx={{ minWidth: 200 }}>
-        {recommendations.length > 0 ? (
-          recommendations.map((recommendation, index) => (
-            <Card key={index} sx={{ mb: 2, p: 2 }}>
-              {recommendation.trim().split('\n').map((line, lineIndex) => (
-                <Typography key={lineIndex}>{line}</Typography>
-              ))}
-            </Card>
-          ))
-        ) : (
-          <Typography>No recommendations available.</Typography>
-        )}
-          <Button
+      <Container maxWidth="sm" style={{ marginTop: "75px" }}>
+        <Grid container spacing={2}>
+          {visibleRecommendations.length > 0 ? (
+            visibleRecommendations.map((recommendation, index) => (
+              <Grid item xs={6} key={index}>
+                <Card sx={{ maxWidth: 345, "&:hover": { boxShadow: 6 } }}>
+                  <CardMedia
+                    component="img"
+                    image={recommendation.itemImage}
+                    alt={recommendation.itemName}
+                    sx={{
+                      height: 140,
+                      objectFit: "contain",
+                    }}
+                  />
+                  <CardContent>
+                    <Typography noWrap variant="subtitle1">
+                      {truncateText(recommendation.itemName, 20)}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      ${recommendation.itemPrice.toFixed(2)}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))
+          ) : (
+            <Typography>No recommendations available.</Typography>
+          )}
+        </Grid>
+        <Box sx={{ my: 2 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                onClick={handleShowMore}
+                sx={{
+                  borderRadius: 50,
+                  width: "100%",
+                  mt: 2,
+                  background: "linear-gradient(45deg, #00b859, #007580)",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                    filter: "brightness(1.1)",
+                  },
+                }}
+              >
+                Another 10 items
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              <Button
                 variant="contained"
                 onClick={handleBack}
                 sx={{
@@ -64,11 +119,13 @@ const RecommendationsPage = () => {
                   },
                 }}
               >
-                Want a different one
+                Edit preference
               </Button>
+            </Grid>
+          </Grid>
         </Box>
       </Container>
-      <BottomNavbar style={{ position: "fixed", bottom: 0, width: "100%" }} />
+      <BottomNavbar sx={{ position: "fixed", bottom: 0, width: "100%" }} />
     </Box>
   );
 };
