@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
+import IconButton from "@mui/material/IconButton";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   Container,
   Box,
@@ -17,6 +20,7 @@ import data from "../../../assets/itemsTest.json";
 const RecommendationsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [likedItems, setLikedItems] = useState({});
 
   const handleBack = () => {
     navigate("/home", {
@@ -35,6 +39,13 @@ const RecommendationsPage = () => {
     visibleRange[0],
     visibleRange[1]
   );
+
+  const toggleLike = (itemName) => {
+    setLikedItems((prevLikedItems) => ({
+      ...prevLikedItems,
+      [itemName]: !prevLikedItems[itemName],
+    }));
+  };
 
   const truncateText = (text, maxLength) => {
     return text.length > maxLength
@@ -59,7 +70,30 @@ const RecommendationsPage = () => {
           {visibleRecommendations.length > 0 ? (
             visibleRecommendations.map((recommendation, index) => (
               <Grid item xs={6} key={index}>
-                <Card sx={{ maxWidth: 345, "&:hover": { boxShadow: 6 } }}>
+                <Card
+                  sx={{
+                    maxWidth: 345,
+                    position: "relative",
+                    "&:hover": { boxShadow: 6 },
+                  }}
+                >
+                  <IconButton
+                    onClick={() => toggleLike(recommendation.itemName)}
+                    sx={{
+                      position: "absolute",
+                      top: 8,
+                      right: 8,
+                      color: likedItems[recommendation.itemName]
+                        ? "red"
+                        : "default",
+                    }}
+                  >
+                    {likedItems[recommendation.itemName] ? (
+                      <FavoriteIcon />
+                    ) : (
+                      <FavoriteBorderIcon />
+                    )}
+                  </IconButton>
                   <CardMedia
                     component="img"
                     image={recommendation.itemImage}
