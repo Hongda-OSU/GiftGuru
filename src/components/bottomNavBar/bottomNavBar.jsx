@@ -13,6 +13,7 @@ const BottomNavbar = () => {
   const location = useLocation();
 
   const isHomeSelected = location.pathname === "/home";
+  const isRecipientSelected = location.pathname === "/recipients";
   const isProfileSelected = location.pathname === "/profile";
 
   return (
@@ -62,7 +63,7 @@ const BottomNavbar = () => {
         sx={{
           width: "50px",
           height: "50px",
-          color: isProfileSelected ? "#007580" : "#666666",
+          color: isRecipientSelected ? "#007580" : "#666666",
           "&:hover .MuiSvgIcon-root, &:hover .MuiTypography-root": {
             color: "#007580",
           },
@@ -76,7 +77,7 @@ const BottomNavbar = () => {
             alignItems: "center",
           }}
         >
-          {isProfileSelected ? (
+          {isRecipientSelected ? (
             <PeopleAltIcon sx={{ width: "30px", height: "30px" }} />
           ) : (
             <PeopleIcon sx={{ width: "30px", height: "30px" }} />

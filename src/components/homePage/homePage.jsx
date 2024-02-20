@@ -151,7 +151,7 @@ const HomePage = ({}) => {
     setLoading(false);
     navigate("/recommendations", {
       state: {
-        recommendation: recommendations.result,
+        recommendation: recommendations,
         sliderValue,
         ageValue,
         relationshipValue,

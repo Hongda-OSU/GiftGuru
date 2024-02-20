@@ -46,10 +46,13 @@ const RecommendationsPage = () => {
   const recommendations = recommendation;
   const [visibleRange, setVisibleRange] = useState([0, 10]);
   const [showMoreButton, setShowMoreButton] = useState(true);
+
   const handleShowMore = () => {
     setVisibleRange([0, recommendations.length]);
     setShowMoreButton(false);
   };
+
+  // Now this won't throw an error because recommendations is guaranteed to be an array
   const visibleRecommendations = recommendations.slice(
     visibleRange[0],
     visibleRange[1]
@@ -58,23 +61,35 @@ const RecommendationsPage = () => {
   useEffect(() => {
     if (user) {
       const db = getDatabase();
-      const recipientsRef = ref(
-        db,
-        "recipients/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna"
-      );
+      // Create a unique path for the user's recommendations
+      const userRecsPath = `recommendations/${user.uid}/Jenna`;
+
+      const recipientsRef = ref(db, userRecsPath);
+
       onValue(recipientsRef, (snapshot) => {
-        const data = snapshot.val() || {};
-        const newLikedItems = {};
-        const newLikedKeys = {};
+        const data = snapshot.val();
 
-        Object.keys(data).forEach((key) => {
-          const item = data[key];
-          newLikedItems[item.title] = true;
-          newLikedKeys[item.title] = key;
-        });
+        // Check if the data exists and is an object
+        if (data && typeof data === "object") {
+          const newLikedItems = {};
+          const newLikedKeys = {};
 
-        setLikedItems(newLikedItems);
-        setLikedKeys(newLikedKeys);
+          // Iterate over the object keys to populate newLikedItems and newLikedKeys
+          Object.keys(data).forEach((key) => {
+            const item = data[key];
+            if (item && item.title) {
+              // Ensure that item and item.title are not undefined
+              newLikedItems[item.title] = true;
+              newLikedKeys[item.title] = key;
+            }
+          });
+
+          setLikedItems(newLikedItems);
+          setLikedKeys(newLikedKeys);
+        } else {
+          // If data doesn't exist, initialize it as an empty object at the path
+          set(ref(db, userRecsPath), {});
+        }
       });
     }
   }, [user]);
@@ -86,7 +101,9 @@ const RecommendationsPage = () => {
     if (likedItems[title]) {
       console.log("Dislike", title);
       const key = likedKeys[title];
-      remove(ref(db, `recipients/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna/${key}`));
+      remove(
+        ref(db, `recommendations/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna/${key}`)
+      );
       setLikedItems((prev) => ({ ...prev, [title]: false }));
       setLikedKeys((prev) => {
         const updated = { ...prev };
@@ -96,7 +113,7 @@ const RecommendationsPage = () => {
     } else {
       console.log("Like", title);
       const newRef = push(
-        ref(db, "recipients/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna")
+        ref(db, "recommendations/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna")
       );
       set(newRef, recommendation);
       setLikedItems((prev) => ({ ...prev, [title]: true }));
@@ -123,81 +140,83 @@ const RecommendationsPage = () => {
     >
       <Header />
       <Container maxWidth="sm" style={{ marginTop: "75px" }}>
-        <Grid container spacing={2}>
-          {visibleRecommendations.length > 0 ? (
-            visibleRecommendations.map((recommendation, index) => (
-              <Grid item xs={6} key={index}>
-                <Card
-                  sx={{
-                    maxWidth: 345,
-                    position: "relative",
-                    "&:hover": { boxShadow: 6 },
-                  }}
-                >
-                  <IconButton
-                    onClick={() => toggleLike(recommendation)}
+        <Box sx={{ minWidth: 200 }}>
+          <Grid container spacing={2}>
+            {visibleRecommendations.length > 0 ? (
+              visibleRecommendations.map((recommendation, index) => (
+                <Grid item xs={6} key={index}>
+                  <Card
                     sx={{
-                      position: "absolute",
-                      top: 8,
-                      right: 8,
-                      color: likedItems[recommendation.title]
-                        ? "red"
-                        : "default",
+                      maxWidth: 345,
+                      position: "relative",
+                      "&:hover": { boxShadow: 6 },
                     }}
                   >
-                    {likedItems[recommendation.title] ? (
-                      <FavoriteIcon />
-                    ) : (
-                      <FavoriteBorderIcon />
-                    )}
-                  </IconButton>
-                  <CardMedia
-                    component="img"
-                    image={recommendation.thumbnail}
-                    alt={recommendation.title}
-                    sx={{
-                      height: 140,
-                      objectFit: "contain",
-                    }}
-                  />
-                  <CardContent>
-                    <Typography noWrap variant="subtitle1">
-                      {truncateText(recommendation.title, 20)}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      ${recommendation.extracted_price.toFixed(2)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))
-          ) : (
-            <Typography>No recommendations available.</Typography>
-          )}
-        </Grid>
-        <Box sx={{ my: 2 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              {showMoreButton && (
-                <Button
-                  variant="contained"
-                  onClick={handleShowMore}
-                  sx={{
-                    borderRadius: 50,
-                    width: "100%",
-                    mt: 2,
-                    background: "linear-gradient(45deg, #00b859, #007580)",
-                    "&:hover": {
-                      transform: "scale(1.02)",
-                      filter: "brightness(1.1)",
-                    },
-                  }}
-                >
-                  Get More Results
-                </Button>
-              )}
-            </Grid>
+                    <IconButton
+                      onClick={() => toggleLike(recommendation)}
+                      sx={{
+                        position: "absolute",
+                        top: 8,
+                        right: 8,
+                        color: likedItems[recommendation.title]
+                          ? "red"
+                          : "default",
+                      }}
+                    >
+                      {likedItems[recommendation.title] ? (
+                        <FavoriteIcon />
+                      ) : (
+                        <FavoriteBorderIcon />
+                      )}
+                    </IconButton>
+                    <CardMedia
+                      component="img"
+                      image={recommendation.thumbnail}
+                      alt={recommendation.title}
+                      sx={{
+                        height: 140,
+                        objectFit: "contain",
+                      }}
+                    />
+                    <CardContent>
+                      <Typography noWrap variant="subtitle1">
+                        {truncateText(recommendation.title, 20)}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        ${recommendation.extracted_price.toFixed(2)}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))
+            ) : (
+              <Typography>No recommendations available.</Typography>
+            )}
           </Grid>
+          <Box sx={{ my: 2 }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                {showMoreButton && (
+                  <Button
+                    variant="contained"
+                    onClick={handleShowMore}
+                    sx={{
+                      borderRadius: 50,
+                      width: "100%",
+                      mt: 2,
+                      background: "linear-gradient(45deg, #00b859, #007580)",
+                      "&:hover": {
+                        transform: "scale(1.02)",
+                        filter: "brightness(1.1)",
+                      },
+                    }}
+                  >
+                    Get More Results
+                  </Button>
+                )}
+              </Grid>
+            </Grid>
+          </Box>
         </Box>
       </Container>
       <BottomNavbar sx={{ position: "fixed", bottom: 0, width: "100%" }} />
