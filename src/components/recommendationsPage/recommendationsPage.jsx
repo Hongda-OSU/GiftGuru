@@ -29,6 +29,16 @@ const RecommendationsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [user] = useAuthState();
+
+  const handleNavigate = (recommendation) => {
+    navigate(`/recommendation-detail`, {
+      state: {
+        recommendation: recommendation,
+        referrer: '/recommendations'
+      }
+    });
+  };
+
   const [likedItems, setLikedItems] = useState({});
   const [likedKeys, setLikedKeys] = useState({});
 
@@ -140,7 +150,7 @@ const RecommendationsPage = () => {
                       position: "relative",
                       "&:hover": { boxShadow: 6 },
                     }}
-                    onClick={() => navigate(`/recommendation-detail`, { state: { recommendation }})}
+                    onClick={() => handleNavigate(recommendation)}
                   >
                     <IconButton
                       onClick={(event) => {

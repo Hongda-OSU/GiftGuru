@@ -27,12 +27,22 @@ import { useAuthState } from "../../../utilities/firebaseUtils";
 
 const RecipientsRecommendationPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [user] = useAuthState();
+
+  const handleNavigate = (recommendation) => {
+    navigate(`/recommendation-detail`, {
+      state: {
+        recommendation: recommendation,
+        referrer: '/recipients-recommendation'
+      }
+    });
+  };
+
   const [recommendations, setRecommendations] = useState([]);
   const [likedItems, setLikedItems] = useState({});
   const [likedKeys, setLikedKeys] = useState({});
   const selectedRecipient = location.state.selectedRecipient;
-  console.log(selectedRecipient);
 
   useEffect(() => {
     if (user && selectedRecipient) {
@@ -113,9 +123,13 @@ const RecipientsRecommendationPage = () => {
                       position: "relative",
                       "&:hover": { boxShadow: 6 },
                     }}
+                    onClick={() => handleNavigate(recommendation)}
                   >
                     <IconButton
-                      onClick={() => toggleLike(recommendation)}
+                      onClick={(event) => {
+                        event.stopPropagation(); 
+                        toggleLike(recommendation);
+                      }}
                       sx={{
                         position: "absolute",
                         top: 8,
