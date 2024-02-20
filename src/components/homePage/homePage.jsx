@@ -43,7 +43,7 @@ const getGeminiRequests = async (
   //     "Content-Type": "multipart/form-data",
   //   },
   // });
-  const res = await axios.post("https://www.giftguru.fun/gemini", imageData, {
+  const res = await axios.post("https://www.giftguru.fun/gemini", inputData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -89,7 +89,14 @@ const HomePage = ({}) => {
   const [recommendation, setRecommendation] = useState("");
   const handleGeneratePlan = async () => {
     setLoading(true);
-    const response = await getGeminiRequests(images);
+    const response = await getGeminiRequests(
+      images,
+      sliderValue,
+      ageValue,
+      relationshipValue,
+      genderValue,
+      moreInfo
+    );
     setLoading(false);
     navigate("/recommendations", {
       state: {
