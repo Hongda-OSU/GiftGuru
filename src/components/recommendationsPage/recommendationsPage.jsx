@@ -43,6 +43,7 @@ const RecommendationsPage = () => {
     apiKey,
     selectedRecipient,
   } = location.state || {};
+  console.log(selectedRecipient);
   const recommendations = recommendation;
   const [visibleRange, setVisibleRange] = useState([0, 10]);
   const [showMoreButton, setShowMoreButton] = useState(true);
@@ -51,59 +52,49 @@ const RecommendationsPage = () => {
     setVisibleRange([0, recommendations.length]);
     setShowMoreButton(false);
   };
-
-  // Now this won't throw an error because recommendations is guaranteed to be an array
   const visibleRecommendations = recommendations.slice(
     visibleRange[0],
     visibleRange[1]
   );
 
   useEffect(() => {
-    if (user) {
+    if (user && selectedRecipient) {
       const db = getDatabase();
-      // Create a unique path for the user's recommendations
-      const userRecsPath = `recommendations/${user.uid}/Jenna`;
+      const likesRefPath = `recommendations/${user.uid}/${selectedRecipient}`;
 
-      const recipientsRef = ref(db, userRecsPath);
+      const recipientsRef = ref(db, likesRefPath);
 
       onValue(recipientsRef, (snapshot) => {
         const data = snapshot.val();
-
-        // Check if the data exists and is an object
         if (data && typeof data === "object") {
           const newLikedItems = {};
           const newLikedKeys = {};
-
-          // Iterate over the object keys to populate newLikedItems and newLikedKeys
           Object.keys(data).forEach((key) => {
             const item = data[key];
             if (item && item.title) {
-              // Ensure that item and item.title are not undefined
               newLikedItems[item.title] = true;
               newLikedKeys[item.title] = key;
             }
           });
-
           setLikedItems(newLikedItems);
           setLikedKeys(newLikedKeys);
         } else {
-          // If data doesn't exist, initialize it as an empty object at the path
-          set(ref(db, userRecsPath), {});
+          set(ref(db, likesRefPath), {});
         }
       });
     }
-  }, [user]);
+  }, [user, selectedRecipient]);
 
   const toggleLike = (recommendation) => {
     const db = getDatabase();
     const title = recommendation.title;
 
+    const likesRefPath = `recommendations/${user.uid}/${selectedRecipient}`;
+
     if (likedItems[title]) {
       console.log("Dislike", title);
       const key = likedKeys[title];
-      remove(
-        ref(db, `recommendations/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna/${key}`)
-      );
+      remove(ref(db, `${likesRefPath}/${key}`));
       setLikedItems((prev) => ({ ...prev, [title]: false }));
       setLikedKeys((prev) => {
         const updated = { ...prev };
@@ -112,9 +103,7 @@ const RecommendationsPage = () => {
       });
     } else {
       console.log("Like", title);
-      const newRef = push(
-        ref(db, "recommendations/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna")
-      );
+      const newRef = push(ref(db, likesRefPath));
       set(newRef, recommendation);
       setLikedItems((prev) => ({ ...prev, [title]: true }));
       setLikedKeys((prev) => ({ ...prev, [title]: newRef.key }));

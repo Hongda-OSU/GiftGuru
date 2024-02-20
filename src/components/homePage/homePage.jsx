@@ -89,17 +89,18 @@ const HomePage = ({}) => {
   const [recipients, setRecipients] = useState([]);
   const [newPerson, setNewPerson] = useState("");
   const [isAddingNewPerson, setIsAddingNewPerson] = useState(false);
-  const [selectedRecipient, setSelectedRecipient] = useState("");
+  const [selectedRecipient, setSelectedRecipient] = useState("nobody");
   const handleSelectChange = (event) => {
-    if (event.target.value === "add-new") {
+    const value = event.target.value;
+    if (value === "add-new") {
       setIsAddingNewPerson(true);
-      setSelectedRecipient("");
+      setSelectedRecipient("nobody");
     } else {
-      setNewPerson(event.target.value);
+      setNewPerson(value);
       setIsAddingNewPerson(false);
-      setSelectedRecipient(event.target.value);
+      setSelectedRecipient(value || "nobody");
     }
-  };
+  };  
 
   const [images, setImages] = React.useState([]);
   const handleImagesChange = (newFiles) => {
