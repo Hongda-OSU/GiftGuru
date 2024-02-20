@@ -16,7 +16,6 @@ import {
   Divider,
 } from "@mui/material";
 import jsonData from "../../../sample.json"
-
 import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
@@ -152,7 +151,7 @@ const HomePage = ({}) => {
     setLoading(false);
     navigate("/recommendations", {
       state: {
-        recommendation: recommendations,
+        recommendation: recommendations.result,
         sliderValue,
         ageValue,
         relationshipValue,

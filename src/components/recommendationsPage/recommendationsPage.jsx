@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
 import IconButton from "@mui/material/IconButton";
@@ -15,36 +15,93 @@ import {
   Grid,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import data from "../../../assets/itemsTest.json";
+import {
+  getDatabase,
+  ref,
+  set,
+  push,
+  remove,
+  onValue,
+} from "firebase/database";
+import { useAuthState } from "../../../utilities/firebaseUtils";
 
 const RecommendationsPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [user] = useAuthState();
   const [likedItems, setLikedItems] = useState({});
+  const [likedKeys, setLikedKeys] = useState({});
 
-  const handleBack = () => {
-    navigate("/home", {
-      state: {
-        ...location.state,
-      },
-    });
-  };
-
-  const recommendations = data.recommendations;
+  const {
+    recommendation,
+    sliderValue,
+    ageValue,
+    relationshipValue,
+    genderValue,
+    moreInfo,
+    images,
+    apiKey,
+    selectedRecipient,
+  } = location.state || {};
+  const recommendations = recommendation;
   const [visibleRange, setVisibleRange] = useState([0, 10]);
+  const [showMoreButton, setShowMoreButton] = useState(true);
   const handleShowMore = () => {
-    setVisibleRange([0, recommendations.length]); 
+    setVisibleRange([0, recommendations.length]);
+    setShowMoreButton(false);
   };
   const visibleRecommendations = recommendations.slice(
     visibleRange[0],
     visibleRange[1]
   );
 
-  const toggleLike = (itemName) => {
-    setLikedItems((prevLikedItems) => ({
-      ...prevLikedItems,
-      [itemName]: !prevLikedItems[itemName],
-    }));
+  useEffect(() => {
+    if (user) {
+      const db = getDatabase();
+      const recipientsRef = ref(
+        db,
+        "recipients/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna"
+      );
+      onValue(recipientsRef, (snapshot) => {
+        const data = snapshot.val() || {};
+        const newLikedItems = {};
+        const newLikedKeys = {};
+
+        Object.keys(data).forEach((key) => {
+          const item = data[key];
+          newLikedItems[item.title] = true;
+          newLikedKeys[item.title] = key;
+        });
+
+        setLikedItems(newLikedItems);
+        setLikedKeys(newLikedKeys);
+      });
+    }
+  }, [user]);
+
+  const toggleLike = (recommendation) => {
+    const db = getDatabase();
+    const title = recommendation.title;
+
+    if (likedItems[title]) {
+      console.log("Dislike", title);
+      const key = likedKeys[title];
+      remove(ref(db, `recipients/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna/${key}`));
+      setLikedItems((prev) => ({ ...prev, [title]: false }));
+      setLikedKeys((prev) => {
+        const updated = { ...prev };
+        delete updated[title];
+        return updated;
+      });
+    } else {
+      console.log("Like", title);
+      const newRef = push(
+        ref(db, "recipients/QgINw26jGIN4rm7eGGVm2T4KlEI2/Jenna")
+      );
+      set(newRef, recommendation);
+      setLikedItems((prev) => ({ ...prev, [title]: true }));
+      setLikedKeys((prev) => ({ ...prev, [title]: newRef.key }));
+    }
   };
 
   const truncateText = (text, maxLength) => {
@@ -78,17 +135,17 @@ const RecommendationsPage = () => {
                   }}
                 >
                   <IconButton
-                    onClick={() => toggleLike(recommendation.itemName)}
+                    onClick={() => toggleLike(recommendation)}
                     sx={{
                       position: "absolute",
                       top: 8,
                       right: 8,
-                      color: likedItems[recommendation.itemName]
+                      color: likedItems[recommendation.title]
                         ? "red"
                         : "default",
                     }}
                   >
-                    {likedItems[recommendation.itemName] ? (
+                    {likedItems[recommendation.title] ? (
                       <FavoriteIcon />
                     ) : (
                       <FavoriteBorderIcon />
@@ -96,8 +153,8 @@ const RecommendationsPage = () => {
                   </IconButton>
                   <CardMedia
                     component="img"
-                    image={recommendation.itemImage}
-                    alt={recommendation.itemName}
+                    image={recommendation.thumbnail}
+                    alt={recommendation.title}
                     sx={{
                       height: 140,
                       objectFit: "contain",
@@ -105,10 +162,10 @@ const RecommendationsPage = () => {
                   />
                   <CardContent>
                     <Typography noWrap variant="subtitle1">
-                      {truncateText(recommendation.itemName, 20)}
+                      {truncateText(recommendation.title, 20)}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      ${recommendation.itemPrice.toFixed(2)}
+                      ${recommendation.extracted_price.toFixed(2)}
                     </Typography>
                   </CardContent>
                 </Card>
@@ -121,22 +178,24 @@ const RecommendationsPage = () => {
         <Box sx={{ my: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-            <Button
-                variant="contained"
-                onClick={handleShowMore}
-                sx={{
-                  borderRadius: 50,
-                  width: "100%",
-                  mt: 2,
-                  background: "linear-gradient(45deg, #00b859, #007580)",
-                  "&:hover": {
-                    transform: "scale(1.02)",
-                    filter: "brightness(1.1)",
-                  },
-                }}
-              >
-                More Results
-              </Button>
+              {showMoreButton && (
+                <Button
+                  variant="contained"
+                  onClick={handleShowMore}
+                  sx={{
+                    borderRadius: 50,
+                    width: "100%",
+                    mt: 2,
+                    background: "linear-gradient(45deg, #00b859, #007580)",
+                    "&:hover": {
+                      transform: "scale(1.02)",
+                      filter: "brightness(1.1)",
+                    },
+                  }}
+                >
+                  Get More Results
+                </Button>
+              )}
             </Grid>
           </Grid>
         </Box>
