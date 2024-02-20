@@ -33,7 +33,7 @@ const RecommendationsPage = () => {
   const recommendations = data.recommendations;
   const [visibleRange, setVisibleRange] = useState([0, 10]);
   const handleShowMore = () => {
-    setVisibleRange([visibleRange[0] + 10, visibleRange[1] + 10]);
+    setVisibleRange([0, recommendations.length]); 
   };
   const visibleRecommendations = recommendations.slice(
     visibleRange[0],
@@ -120,8 +120,8 @@ const RecommendationsPage = () => {
         </Grid>
         <Box sx={{ my: 2 }}>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <Button
+            <Grid item xs={12}>
+            <Button
                 variant="contained"
                 onClick={handleShowMore}
                 sx={{
@@ -135,25 +135,7 @@ const RecommendationsPage = () => {
                   },
                 }}
               >
-                Another 10 items
-              </Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                variant="contained"
-                onClick={handleBack}
-                sx={{
-                  borderRadius: 50,
-                  width: "100%",
-                  mt: 2,
-                  background: "linear-gradient(45deg, #00b859, #007580)",
-                  "&:hover": {
-                    transform: "scale(1.02)",
-                    filter: "brightness(1.1)",
-                  },
-                }}
-              >
-                Edit preference
+                More Results
               </Button>
             </Grid>
           </Grid>

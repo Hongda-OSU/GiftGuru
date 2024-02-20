@@ -21,6 +21,8 @@ import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuthState } from "../../../utilities/firebaseUtils";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 const getGeminiRequests = async (
   images,
@@ -83,6 +85,23 @@ const HomePage = ({}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [user] = useAuthState();
+
+  const [recipients, setRecipients] = useState([]);
+  const [newPerson, setNewPerson] = useState("");
+  const [isAddingNewPerson, setIsAddingNewPerson] = useState(false);
+  const [selectedRecipient, setSelectedRecipient] = useState("");
+  const handleSelectChange = (event) => {
+    if (event.target.value === "add-new") {
+      setIsAddingNewPerson(true);
+      setSelectedRecipient("");
+    } else {
+      setNewPerson(event.target.value);
+      setIsAddingNewPerson(false);
+      setSelectedRecipient(event.target.value);
+    }
+  };
+
   const [images, setImages] = React.useState([]);
   const handleImagesChange = (newFiles) => {
     setImages((prevFiles) => [...prevFiles, ...newFiles]);
@@ -141,6 +160,7 @@ const HomePage = ({}) => {
         moreInfo,
         images,
         apiKey,
+        selectedRecipient,
       },
     });
   };
@@ -166,6 +186,41 @@ const HomePage = ({}) => {
     setMoreInfo(state.moreInfo);
     setImages(state.images);
     setApiKey(state.apiKey);
+    setSelectedRecipient(state.selectedRecipient);
+  };
+
+  useEffect(() => {
+    if (user) {
+      const recipientsRef = ref(getDatabase(), `recipients/${user.uid}`);
+      onValue(recipientsRef, (snapshot) => {
+        const data = snapshot.val();
+        setRecipients(data || []);
+      });
+    }
+  }, [user]);
+
+  const handleAddPerson = async () => {
+    const recipientsRef = ref(getDatabase(), `recipients/${user.uid}`);
+    if (!newPerson || recipients.includes(newPerson)) {
+      console.error("Invalid person name or already exists");
+      return;
+    }
+    try {
+      setSelectedRecipient(newPerson);
+      await set(recipientsRef, [...recipients, newPerson]);
+      onValue(
+        recipientsRef,
+        (snapshot) => {
+          const updatedRecipients = snapshot.val() || [];
+          setRecipients(updatedRecipients);
+        },
+        {
+          onlyOnce: true,
+        }
+      );
+    } catch (error) {
+      console.error("Firebase update failed: ", error);
+    }
   };
 
   useEffect(() => {
@@ -202,6 +257,60 @@ const HomePage = ({}) => {
             </FormControl>
 
             <Divider sx={{ my: 1 }} />
+
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <Typography variant="body2" gutterBottom>
+                Recipient Name
+              </Typography>
+            </FormControl>
+
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <InputLabel id="recipients-select-label">
+                Recipient Name
+              </InputLabel>
+              <Select
+                labelId="recipients-select-label"
+                id="recipients-select"
+                value={isAddingNewPerson ? "add-new" : selectedRecipient}
+                label="Recipient Name"
+                onChange={handleSelectChange}
+              >
+                {recipients.map((recipient, index) => (
+                  <MenuItem key={index} value={recipient}>
+                    {recipient}
+                  </MenuItem>
+                ))}
+                <MenuItem value="add-new">Add New Recipient</MenuItem>
+              </Select>
+            </FormControl>
+
+            {isAddingNewPerson && (
+              <>
+                <TextField
+                  fullWidth
+                  label="New Recipient's Name"
+                  value={newPerson}
+                  onChange={(e) => setNewPerson(e.target.value)}
+                  sx={{ mb: 1 }}
+                />
+                <Button
+                  fullWidth
+                  variant="contained"
+                  onClick={handleAddPerson}
+                  sx={{
+                    mb: 2,
+                    borderRadius: 50,
+                    background: "linear-gradient(45deg, #00b859, #007580)",
+                    "&:hover": {
+                      transform: "scale(1.02)",
+                      filter: "brightness(1.1)",
+                    },
+                  }}
+                >
+                  Add New Recipient
+                </Button>
+              </>
+            )}
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
