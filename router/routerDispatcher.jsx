@@ -4,6 +4,7 @@ import { useAuthState } from "../utilities/firebaseUtils";
 import HomePage from "../src/components/homePage/homePage";
 import LoginPage from "../src/components/loginPage/loginPage";
 import ProfilePage from "../src/components/profilePage/profilePage";
+import RecipientsPage from "../src/components/recipientsPage/recipientsPage";
 import RecommendationsPage from "../src/components/recommendationsPage/recommendationsPage";
 
 const RouteDispatcher = () => {
@@ -43,6 +44,14 @@ const RouteDispatcher = () => {
           element={
             <PrivateRoute>
               <RecommendationsPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/recipients"
+          element={
+            <PrivateRoute>
+              <RecipientsPage />
             </PrivateRoute>
           }
         />
