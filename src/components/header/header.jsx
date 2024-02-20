@@ -11,10 +11,8 @@ const Header = () => {
 
   const handleBack = () => {
     if (location.pathname === "/recommendation-detail") navigate(-1);
-    else { 
-      if (location.pathname === "/recipients-recommendation") navigate("/recipients");
-      else if (location.pathname === "/recommendations") navigate("/home", { state: {...location.state, }, });
-    }
+    else if (location.pathname === "/recipients-recommendation") navigate("/recipients");
+    else if (location.pathname === "/recommendations") navigate("/home", { state: {...location.state, }, });
   };
 
   return (

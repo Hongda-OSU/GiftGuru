@@ -34,8 +34,8 @@ const RecipientsRecommendationPage = () => {
     navigate(`/recommendation-detail`, {
       state: {
         recommendation: recommendation,
-        referrer: '/recipients-recommendation'
-      }
+        referrer: "/recipients-recommendation",
+      },
     });
   };
 
@@ -47,7 +47,10 @@ const RecipientsRecommendationPage = () => {
   useEffect(() => {
     if (user && selectedRecipient) {
       const db = getDatabase();
-      const recommendationsRef = ref(db, `recommendations/${user.uid}/${selectedRecipient}`);
+      const recommendationsRef = ref(
+        db,
+        `recommendations/${user.uid}/${selectedRecipient}`
+      );
 
       onValue(recommendationsRef, (snapshot) => {
         const data = snapshot.val();
@@ -127,7 +130,7 @@ const RecipientsRecommendationPage = () => {
                   >
                     <IconButton
                       onClick={(event) => {
-                        event.stopPropagation(); 
+                        event.stopPropagation();
                         toggleLike(recommendation);
                       }}
                       sx={{

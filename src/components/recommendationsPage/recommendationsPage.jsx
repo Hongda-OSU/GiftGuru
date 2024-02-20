@@ -34,8 +34,8 @@ const RecommendationsPage = () => {
     navigate(`/recommendation-detail`, {
       state: {
         recommendation: recommendation,
-        referrer: '/recommendations'
-      }
+        referrer: "/recommendations",
+      },
     });
   };
 
@@ -154,7 +154,7 @@ const RecommendationsPage = () => {
                   >
                     <IconButton
                       onClick={(event) => {
-                        event.stopPropagation(); 
+                        event.stopPropagation();
                         toggleLike(recommendation);
                       }}
                       sx={{
