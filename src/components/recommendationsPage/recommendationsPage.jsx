@@ -140,9 +140,13 @@ const RecommendationsPage = () => {
                       position: "relative",
                       "&:hover": { boxShadow: 6 },
                     }}
+                    onClick={() => navigate(`/recommendation-detail`, { state: { recommendation }})}
                   >
                     <IconButton
-                      onClick={() => toggleLike(recommendation)}
+                      onClick={(event) => {
+                        event.stopPropagation(); 
+                        toggleLike(recommendation);
+                      }}
                       sx={{
                         position: "absolute",
                         top: 8,

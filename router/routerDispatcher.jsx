@@ -7,6 +7,7 @@ import ProfilePage from "../src/components/profilePage/profilePage";
 import RecipientsPage from "../src/components/recipientsPage/recipientsPage";
 import RecommendationsPage from "../src/components/recommendationsPage/recommendationsPage";
 import RecipientsRecommendationPage from "../src/components/recipientsRecommendation/recipientsRecommendation";
+import RecommendationDetailPage from "../src/components/recommendationDetailPage/recommendationDetailPage";
 
 const RouteDispatcher = () => {
   const [user, loading] = useAuthState();
@@ -61,6 +62,14 @@ const RouteDispatcher = () => {
           element={
             <PrivateRoute>
               <RecipientsRecommendationPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/recommendation-detail"
+          element={
+            <PrivateRoute>
+              <RecommendationDetailPage />
             </PrivateRoute>
           }
         />
