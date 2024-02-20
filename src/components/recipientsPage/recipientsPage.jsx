@@ -14,11 +14,16 @@ import {
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Header from "../header/header";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
+import RecipientsRecommendationPage from "../../components/recipientsRecommendation/recipientsRecommendation";
 
 const RecipientsPage = () => {
   const [user] = useAuthState();
   const [recipientsList, setRecipientsList] = useState({});
   const navigate = useNavigate();
+  
+  const handleNavigateToRecommendations = (recipientName) => {
+    navigate('/recipients-recommendation', { state: { selectedRecipient: recipientName } });
+  };
 
   useEffect(() => {
     if (user) {
@@ -107,7 +112,10 @@ const RecipientsPage = () => {
                       </ImageListItem>
                     ))}
                   </ImageList>
-                  <ArrowForwardIcon sx={{ color: "#007580" }} />
+                  <ArrowForwardIcon
+                    sx={{ color: "#007580" }}
+                    onClick={() => handleNavigateToRecommendations(recipientName)}
+                  />
                 </Box>
               </CardContent>
             </Card>

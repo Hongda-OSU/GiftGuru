@@ -10,13 +10,17 @@ const Header = () => {
   const location = useLocation();
 
   const handleBack = () => {
-    navigate("/home");
+    if (location.pathname === '/recipients-recommendation') {
+      navigate("/recipients");
+    } else {
+      navigate("/home");
+    }
   };
 
   return (
     <AppBar position="fixed" sx={{ top: 0, background: 'linear-gradient(45deg, #00b859, #007580)', height: '50px' }}> 
       <Toolbar variant="dense" sx={{ justifyContent: 'center' }}>
-      {location.pathname === '/recommendations' && (
+      {(location.pathname === '/recommendations' || location.pathname === '/recipients-recommendation') && (
           <IconButton edge="start" aria-label="back" onClick={handleBack} sx={{ position: 'absolute', left: 15 }}>
             <ArrowBackIcon sx={{ color: 'white', fontSize: '1em' }} />
           </IconButton>
