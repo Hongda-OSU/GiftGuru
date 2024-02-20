@@ -15,6 +15,7 @@ import {
   Container,
   Divider,
 } from "@mui/material";
+import jsonData from "../../../sample.json"
 
 import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
@@ -43,13 +44,39 @@ const getGeminiRequests = async (
   //     "Content-Type": "multipart/form-data",
   //   },
   // });
-  const res = await axios.post("https://www.giftguru.fun/gemini", inputData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  const text = res.data.text;
-  return text.split(":");
+
+  try {
+    const res = await axios.post("https://www.giftguru.fun/gemini", inputData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    const text = res.data.text;
+
+    const items = text
+      .split(":")[0]
+      .split("\n")
+      .map((item) => item.replace(/^\s*\*\s*/, ""));
+    const tags = items.join(", ");
+    return tags;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const getRecommendationRequests = async (tags, minPrice, maxPrice, gender) => {
+  // try {
+  //   const res = await axios.post("http://localhost:3001/recommendation", {
+  //     tags,
+  //     minPrice,
+  //     maxPrice,
+  //     gender,
+  //   });
+  //   return res.data.result;
+  // } catch (err) {
+  //   console.error(err);
+  // }
+  return jsonData.result;
 };
 
 const HomePage = ({}) => {
@@ -60,7 +87,7 @@ const HomePage = ({}) => {
   const handleImagesChange = (newFiles) => {
     setImages((prevFiles) => [...prevFiles, ...newFiles]);
   };
-  const [sliderValue, setSliderValue] = React.useState([30, 100]);
+  const [sliderValue, setSliderValue] = React.useState([10, 150]);
   const handleSliderChange = (event, newValue) => {
     if (newValue[1] - newValue[0] >= 10) {
       setSliderValue(newValue);
@@ -89,7 +116,7 @@ const HomePage = ({}) => {
   const [recommendation, setRecommendation] = useState("");
   const handleGeneratePlan = async () => {
     setLoading(true);
-    const response = await getGeminiRequests(
+    const tags = await getGeminiRequests(
       images,
       sliderValue,
       ageValue,
@@ -97,10 +124,16 @@ const HomePage = ({}) => {
       genderValue,
       moreInfo
     );
+    const recommendations = await getRecommendationRequests(
+      tags,
+      sliderValue[0],
+      sliderValue[1],
+      genderValue
+    );
     setLoading(false);
     navigate("/recommendations", {
       state: {
-        recommendation: response,
+        recommendation: recommendations,
         sliderValue,
         ageValue,
         relationshipValue,
