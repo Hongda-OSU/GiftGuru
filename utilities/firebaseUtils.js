@@ -13,12 +13,33 @@ import {
   getFirebaseDatabase,
   getFirebaseStorage,
 } from "./firebase";
+import {
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 const makeResult = (error) => {
   const timestamp = Date.now();
   const message =
     error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
   return { timestamp, error, message };
+};
+
+export const uploadImage = async (image) => {
+  if (image == null) {
+    return Promise.resolve(null);
+  }
+  const storage = getFirebaseStorage();
+  const imageRef = storageRef(storage, `images/${uuidv4()}`);
+
+  try {
+    await uploadBytes(imageRef, image);
+    return await getDownloadURL(imageRef);
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const useDbData = (path) => {
