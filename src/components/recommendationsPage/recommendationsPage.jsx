@@ -53,7 +53,6 @@ const RecommendationsPage = () => {
     apiKey,
     selectedRecipient,
   } = location.state || {};
-  console.log(selectedRecipient);
   const recommendations = recommendation;
   const [visibleRange, setVisibleRange] = useState([0, 10]);
   const [showMoreButton, setShowMoreButton] = useState(true);

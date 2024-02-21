@@ -15,7 +15,7 @@ import {
   Container,
   Divider,
 } from "@mui/material";
-import jsonData from "../../../sample.json"
+import jsonData from "../../../sample.json";
 import DropzoneAreaExample from "../dropZone/dropZone";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
 import Header from "../header/header";
@@ -40,11 +40,6 @@ const getGeminiRequests = async (
   inputData.append("relationshipValue", relationshipValue);
   inputData.append("genderValue", genderValue);
   inputData.append("moreInfo", moreInfo);
-  // const res = await axios.post("http://localhost:3001/gemini", inputData, {
-  //   headers: {
-  //     "Content-Type": "multipart/form-data",
-  //   },
-  // });
 
   try {
     const res = await axios.post("https://www.giftguru.fun/gemini", inputData, {
@@ -53,12 +48,12 @@ const getGeminiRequests = async (
       },
     });
     const text = res.data.text;
-
     const items = text
       .split(":")[0]
       .split("\n")
       .map((item) => item.replace(/^\s*\*\s*/, ""));
     const tags = items.join(", ");
+    console.log(tags);
     return tags;
   } catch (err) {
     console.error(err);
@@ -66,18 +61,17 @@ const getGeminiRequests = async (
 };
 
 const getRecommendationRequests = async (tags, minPrice, maxPrice, gender) => {
-  // try {
-  //   const res = await axios.post("http://localhost:3001/recommendation", {
-  //     tags,
-  //     minPrice,
-  //     maxPrice,
-  //     gender,
-  //   });
-  //   return res.data.result;
-  // } catch (err) {
-  //   console.error(err);
-  // }
-  return jsonData.result;
+  try {
+    const res = await axios.post("https://www.giftguru.fun/recommendation", {
+      tags,
+      minPrice,
+      maxPrice,
+      gender,
+    });
+    return res.data.result;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const HomePage = ({}) => {
@@ -100,7 +94,7 @@ const HomePage = ({}) => {
       setIsAddingNewPerson(false);
       setSelectedRecipient(value || "nobody");
     }
-  };  
+  };
 
   const [images, setImages] = React.useState([]);
   const handleImagesChange = (newFiles) => {
