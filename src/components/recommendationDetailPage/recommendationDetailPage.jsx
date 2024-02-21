@@ -44,7 +44,6 @@ const RecommendationDetailPage = () => {
             <Card sx={{ mb: 2 }}>
               <CardMedia
                 component="img"
-                height="194"
                 image={recommendation.thumbnail}
                 alt={truncateText(recommendation.title, 20)}
               />
