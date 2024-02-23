@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { onValue, ref, update, remove, push } from "firebase/database";
+import { onValue, ref, update, remove, set  } from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import {
@@ -13,12 +14,33 @@ import {
   getFirebaseDatabase,
   getFirebaseStorage,
 } from "./firebase";
+import {
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 const makeResult = (error) => {
   const timestamp = Date.now();
   const message =
     error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
   return { timestamp, error, message };
+};
+
+export const uploadImage = async (image) => {
+  if (image == null) {
+    return Promise.resolve(null);
+  }
+  const storage = getFirebaseStorage();
+  const imageRef = storageRef(storage, `images/${uuidv4()}`);
+
+  try {
+    await uploadBytes(imageRef, image);
+    return await getDownloadURL(imageRef);
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const useDbData = (path) => {
@@ -51,8 +73,8 @@ export const useDbAdd = (path) => {
   const database = getFirebaseDatabase(firebase);
 
   const addData = useCallback(
-    (value) => {
-      push(ref(database, path), value)
+    (key, value) => {
+      set(ref(database, `${path}/${key}`), value)
         .then(() => setResult(makeResult()))
         .catch((error) => setResult(makeResult(error)));
     },
@@ -125,6 +147,22 @@ export const signInWithEmailPassword = async (email, password) => {
       console.log(err.code);
       alert('Click "Use Test Account" to Sign In');
     });
+};
+
+export const signUpWithEmailPassword = async (email, password) => {
+  const app = getFirebaseApp();
+  const auth = getAuth(app);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential.user; 
+  } catch (err) {
+    console.error(err.code);
+    throw err; 
+  }
 };
 
 export const firebaseSignOut = async () => {

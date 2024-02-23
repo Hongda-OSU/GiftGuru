@@ -4,16 +4,16 @@ import { useFrame } from "@react-three/fiber";
 
 const Gift = (props) => {
   const giftRef = useRef();
-  let rotationSpeed = 0.015;
+  let rotationSpeed = 0.02;
   const { onHover } = props;
   const { nodes, materials } = useGLTF("/gift.glb");
 
   useFrame(() => {
     if (giftRef.current) {
       if (props.isHovered) {
-        rotationSpeed = Math.max(rotationSpeed - 0.001, 0.0015);
+        rotationSpeed = Math.max(rotationSpeed - 0.001, 0.002);
       } else {
-        rotationSpeed = Math.min(rotationSpeed + 0.001, 0.015);
+        rotationSpeed = Math.min(rotationSpeed + 0.001, 0.02);
       }
       giftRef.current.rotation.y += rotationSpeed;
     }
