@@ -8,6 +8,8 @@ import {
   signInWithEmailPassword,
   useAuthState,
   uploadImage,
+  signUpWithEmailPassword,
+  useDbAdd,
 } from "../../../utilities/firebaseUtils";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -44,18 +46,18 @@ const LoginPage = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
-  const [signUpEmail, setSignUpEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [avatarUrl, setAvatarUrl] = useState(maleAvatarUrl);
   const [userAvatarUrl, setUserAvatarUrl] = useState("");
+  const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPhoneNumber, setSignUpPhoneNumber] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
-  const [signUpGender, setSignUpGender] = useState("male");
+  const [signUpGender, setSignUpGender] = useState("Male");
 
   const handleGenderChange = (event) => {
     setSignUpGender(event.target.value);
-    event.target.value === "male"
+    event.target.value === "Male"
       ? setAvatarUrl(maleAvatarUrl)
       : setAvatarUrl(femaleAvatarUrl);
   };
@@ -117,6 +119,33 @@ const LoginPage = () => {
     try {
       const url = await uploadImage(image);
       setUserAvatarUrl(url);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const [addData, result] = useDbAdd("/users/");
+
+  const onSignUpButtonClicked = async () => {
+    if (!signUpPhoneNumber || !signUpPassword || !signUpEmail) {
+      alert("missing info for signup");
+      return;
+    }
+    try {
+      const userCredential = await signUpWithEmailPassword(
+        signUpEmail,
+        signUpPassword
+      );
+
+      const userData = {
+        SignUpEmail: signUpEmail,
+        Gender: signUpGender,
+        SignUpPhoneNumber: signUpPhoneNumber,
+        ProfileImage: userAvatarUrl || avatarUrl,
+        SignUpPassword: signUpPassword,
+      };
+      console.log(userCredential.uid)
+      addData(userCredential.uid, userData);
     } catch (err) {
       console.error(err);
     }
@@ -445,12 +474,12 @@ const LoginPage = () => {
                   onChange={handleGenderChange}
                 >
                   <FormControlLabel
-                    value="female"
+                    value="Female"
                     control={<Radio />}
                     label="Female"
                   />
                   <FormControlLabel
-                    value="male"
+                    value="Male"
                     control={<Radio />}
                     label="Male"
                   />
@@ -462,6 +491,7 @@ const LoginPage = () => {
                 variant="contained"
                 className="signup-button"
                 sx={{ width: "300px" }}
+                onClick={onSignUpButtonClicked}
               >
                 Sign Up
               </Button>

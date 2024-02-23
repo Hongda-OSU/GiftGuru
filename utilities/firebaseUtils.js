@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
-import { onValue, ref, update, remove, push } from "firebase/database";
+import { onValue, ref, update, remove, set  } from "firebase/database";
 import {
   getAuth,
   GoogleAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
   signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
 import {
@@ -72,8 +73,8 @@ export const useDbAdd = (path) => {
   const database = getFirebaseDatabase(firebase);
 
   const addData = useCallback(
-    (value) => {
-      push(ref(database, path), value)
+    (key, value) => {
+      set(ref(database, `${path}/${key}`), value)
         .then(() => setResult(makeResult()))
         .catch((error) => setResult(makeResult(error)));
     },
@@ -146,6 +147,22 @@ export const signInWithEmailPassword = async (email, password) => {
       console.log(err.code);
       alert('Click "Use Test Account" to Sign In');
     });
+};
+
+export const signUpWithEmailPassword = async (email, password) => {
+  const app = getFirebaseApp();
+  const auth = getAuth(app);
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    return userCredential.user; 
+  } catch (err) {
+    console.error(err.code);
+    throw err; 
+  }
 };
 
 export const firebaseSignOut = async () => {
