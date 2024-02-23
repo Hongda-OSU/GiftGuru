@@ -148,7 +148,6 @@ const LoginPage = () => {
         ProfileImage: userAvatarUrl || avatarUrl,
         SignUpPassword: signUpPassword,
       };
-      console.log(userCredential.uid);
       addData(userCredential.uid, userData);
     } catch (err) {
       console.error(err);

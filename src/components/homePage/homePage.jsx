@@ -48,11 +48,10 @@ const getGeminiRequests = async (
       },
     });
     const text = res.data.text;
-    const items = text
-      .split(":")[0]
+    const tags = text
       .split("\n")
-      .map((item) => item.replace(/^\s*\*\s*/, ""));
-    const tags = items.join(", ");
+      .map((item) => item.substring(item.indexOf(". ") + 2))
+      .join(", ");
     console.log(tags);
     return tags;
   } catch (err) {
