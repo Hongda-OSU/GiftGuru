@@ -60,17 +60,18 @@ const getGeminiRequests = async (
 };
 
 const getRecommendationRequests = async (tags, minPrice, maxPrice, gender) => {
-  try {
-    const res = await axios.post("https://www.giftguru.fun/recommendation", {
-      tags,
-      minPrice,
-      maxPrice,
-      gender,
-    });
-    return res.data.result;
-  } catch (err) {
-    console.error(err);
-  }
+  // try {
+  //   const res = await axios.post("https://www.giftguru.fun/recommendation", {
+  //     tags,
+  //     minPrice,
+  //     maxPrice,
+  //     gender,
+  //   });
+  //   return res.data.result;
+  // } catch (err) {
+  //   console.error(err);
+  // }
+  return jsonData.result;
 };
 
 const HomePage = ({}) => {
@@ -160,6 +161,7 @@ const HomePage = ({}) => {
 
   const Loader = () => {
     const [text, setText] = useState("");
+
     useEffect(() => {
       const interval = setInterval(() => {
         setText((prevText) => {
@@ -168,7 +170,35 @@ const HomePage = ({}) => {
       }, 300);
       return () => clearInterval(interval);
     }, []);
-    return <h4>Recommendation is loading, please wait{text}</h4>;
+
+    return (
+      <div style={overlayStyle}>
+        <div style={loaderStyle}>
+          <h4>Recommendations are loading, please wait{text}</h4>
+        </div>
+      </div>
+    );
+  };
+
+  const overlayStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1000,
+  };
+
+  const loaderStyle = {
+    textAlign: "center",
+    backgroundColor: "#FFF",
+    padding: "15px",
+    borderRadius: "10px",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
   };
 
   const setAllStatesFromLocation = (state) => {
@@ -419,7 +449,7 @@ const HomePage = ({}) => {
             <Stack
               spacing={2}
               direction="row"
-              sx={{ mb: 2 }}
+              sx={{ mb: 1 }}
               alignItems="center"
             >
               <p>$0</p>

@@ -2,10 +2,10 @@ import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
-import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import RedeemIcon from "@mui/icons-material/Redeem";
-import PeopleIcon from '@mui/icons-material/People';
-import SearchIcon from '@mui/icons-material/Search';
+import PeopleIcon from "@mui/icons-material/People";
+import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const BottomNavbar = () => {
