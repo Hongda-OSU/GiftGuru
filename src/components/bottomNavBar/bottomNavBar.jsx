@@ -2,10 +2,10 @@ import React from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
-import HomeIcon from "@mui/icons-material/Home";
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import RedeemIcon from "@mui/icons-material/Redeem";
 import PeopleIcon from '@mui/icons-material/People';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate, useLocation } from "react-router-dom";
 
 const BottomNavbar = () => {
@@ -52,9 +52,9 @@ const BottomNavbar = () => {
           }}
         >
           {isHomeSelected ? (
-            <RedeemIcon sx={{ width: "30px", height: "30px" }} />
+            <ContentPasteSearchIcon sx={{ width: "30px", height: "30px" }} />
           ) : (
-            <HomeIcon sx={{ width: "30px", height: "30px" }} />
+            <SearchIcon sx={{ width: "30px", height: "30px" }} />
           )}
         </Box>
       </IconButton>
@@ -78,7 +78,7 @@ const BottomNavbar = () => {
           }}
         >
           {isRecipientSelected ? (
-            <PeopleAltIcon sx={{ width: "30px", height: "30px" }} />
+            <RedeemIcon sx={{ width: "30px", height: "30px" }} />
           ) : (
             <PeopleIcon sx={{ width: "30px", height: "30px" }} />
           )}

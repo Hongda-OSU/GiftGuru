@@ -1,10 +1,11 @@
 .header-title {
-    font-family: fantasy;
+    /* font-family: fantasy; */
+    font-family: 'Poppins', sans-serif;
     font-size: large;
-    font-weight: 900;
+    font-weight: 400;
     color: 	#FFFFFF;
     margin: 0;
     margin-left: 10%;
-    margin-top: 10%;
+    /* margin-top: 10%; */
   }
   

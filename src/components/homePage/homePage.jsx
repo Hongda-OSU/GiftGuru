@@ -260,6 +260,34 @@ const HomePage = ({}) => {
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
+                Detail Information
+              </Typography>
+            </FormControl>
+
+            <FormControl fullWidth sx={{ mb: 1, textAlign: "center" }}>
+              <InputLabel
+                id="demo-simple-select-label"
+                sx={{ textAlign: "center" }}
+              ></InputLabel>
+              <TextField
+                id="outlined-multiline-flexible"
+                label="Enter Detail Information"
+                multiline
+                minRows={1}
+                maxRows={5}
+                variant="outlined"
+                value={moreInfo}
+                onChange={(event) => setMoreInfo(event.target.value)}
+                placeholder="Enter Detail Information"
+                sx={{
+                  width: "100%",
+                  margin: "0 auto",
+                }}
+              />
+            </FormControl>
+
+            <FormControl fullWidth sx={{ mb: 1 }}>
+              <Typography variant="body2" gutterBottom>
                 Recipient Name
               </Typography>
             </FormControl>
@@ -318,7 +346,7 @@ const HomePage = ({}) => {
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormControl fullWidth sx={{ mb: 1 }}>
               <InputLabel id="demo-simple-select-label">
                 Select gender
               </InputLabel>
@@ -341,7 +369,7 @@ const HomePage = ({}) => {
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth sx={{ mb: 2 }}>
+            <FormControl fullWidth sx={{ mb: 1 }}>
               <InputLabel id="age-range-select-label">
                 Select age range
               </InputLabel>
@@ -422,34 +450,6 @@ const HomePage = ({}) => {
               />
               <p>$1000</p>
             </Stack>
-
-            <FormControl fullWidth sx={{ mb: 1 }}>
-              <Typography variant="body2" gutterBottom>
-                Any other information
-              </Typography>
-            </FormControl>
-
-            <FormControl fullWidth sx={{ textAlign: "center" }}>
-              <InputLabel
-                id="demo-simple-select-label"
-                sx={{ textAlign: "center" }}
-              ></InputLabel>
-              <TextField
-                id="outlined-multiline-flexible"
-                label="Enter Additional Information"
-                multiline
-                minRows={1}
-                maxRows={5}
-                variant="outlined"
-                value={moreInfo}
-                onChange={(event) => setMoreInfo(event.target.value)}
-                placeholder="Enter Additional Information"
-                sx={{
-                  width: "100%",
-                  margin: "0 auto",
-                }}
-              />
-            </FormControl>
 
             <FormControl
               sx={{
