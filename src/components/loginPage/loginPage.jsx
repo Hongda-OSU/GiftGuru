@@ -131,6 +131,10 @@ const LoginPage = () => {
       alert("missing info for signup");
       return;
     }
+    if (signUpPassword.length < 6) {
+      alert("Password need contain 6 characters");
+      return;
+    }
     try {
       const userCredential = await signUpWithEmailPassword(
         signUpEmail,
@@ -144,7 +148,7 @@ const LoginPage = () => {
         ProfileImage: userAvatarUrl || avatarUrl,
         SignUpPassword: signUpPassword,
       };
-      console.log(userCredential.uid)
+      console.log(userCredential.uid);
       addData(userCredential.uid, userData);
     } catch (err) {
       console.error(err);
