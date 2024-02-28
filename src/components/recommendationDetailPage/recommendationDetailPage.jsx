@@ -10,6 +10,7 @@ import {
   Divider,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import CompareArrowsIcon from "@mui/icons-material/CompareArrows";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 import BottomNavbar from "../bottomNavBar/bottomNavBar";
@@ -17,6 +18,7 @@ import Header from "../header/header";
 
 const RecommendationDetailPage = () => {
   const { state } = useLocation();
+  console.log(state);
   const { recommendation } = state;
 
   // Function to truncate text if needed
@@ -44,6 +46,7 @@ const RecommendationDetailPage = () => {
             <Card sx={{ mb: 2 }}>
               <CardMedia
                 component="img"
+                sx={{ width: "200px", margin: "auto" }}
                 image={recommendation.thumbnail}
                 alt={truncateText(recommendation.title, 20)}
               />
@@ -81,11 +84,13 @@ const RecommendationDetailPage = () => {
 
             <Card
               sx={{
-                marginBottom: 2,
                 backgroundColor: "#f0f8ff",
                 display: "flex",
+                justifyContent: "center",
                 alignItems: "center",
-                justifyContent: "start",
+                height: "40px",
+                margin: "auto",
+                marginBottom: "10px",
                 padding: 2,
               }}
             >
@@ -122,11 +127,13 @@ const RecommendationDetailPage = () => {
 
             <Card
               sx={{
-                marginBottom: 2,
                 backgroundColor: "#f0f8ff",
                 display: "flex",
+                justifyContent: "center",
                 alignItems: "center",
-                justifyContent: "start",
+                height: "40px",
+                margin: "auto",
+                marginBottom: "10px",
                 padding: 2,
               }}
             >
@@ -157,6 +164,50 @@ const RecommendationDetailPage = () => {
                 </Typography>
               </CardActionArea>
             </Card>
+
+            {recommendation["number_of_comparisons"] && (
+              <Card
+                sx={{
+                  backgroundColor: "#f0f8ff",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "40px",
+                  margin: "auto",
+                  marginBottom: "10px",
+                  padding: 2,
+                }}
+              >
+                <CardActionArea
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                    justifyContent: "start",
+                  }}
+                  onClick={() =>
+                    (window.location.href = recommendation.comparison_link)
+                  }
+                >
+                  <CompareArrowsIcon
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      objectFit: "contain",
+                      marginLeft: 1,
+                      marginRight: 2,
+                    }}
+                  />
+                  <Typography
+                    variant="subtitle1"
+                    gutterBottom
+                    sx={{ flexGrow: 1, textAlign: "center" }}
+                  >
+                    See other comparisons
+                  </Typography>
+                </CardActionArea>
+              </Card>
+            )}
           </Box>
         </Box>
       </Container>
