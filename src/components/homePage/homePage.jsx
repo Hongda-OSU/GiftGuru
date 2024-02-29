@@ -183,25 +183,6 @@ const HomePage = ({}) => {
     p: 3,
   };
 
-  // const Loader = () => {
-  //   const [text, setText] = useState("");
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       setText((prevText) => {
-  //         return prevText.length === 3 ? "" : prevText + ".";
-  //       });
-  //     }, 300);
-  //     return () => clearInterval(interval);
-  //   }, []);
-  //   return (
-  //     <div style={overlayStyle}>
-  //       <div style={loaderStyle}>
-  //         <h4>Recommendations are loading, please wait{text}</h4>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-
   const Loader = () => {
     const [isTop, setIsTop] = useState(true);
     useEffect(() => {
