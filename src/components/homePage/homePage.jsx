@@ -51,10 +51,15 @@ const getGeminiRequests = async (
       },
     });
     const text = res.data.text;
-    const tags = text
+    let tags = text
       .split("\n")
-      .map((item) => item.substring(item.indexOf(". ") + 2))
+      .map((item) => `${genderValue} ${item.substring(item.indexOf(". ") + 2)}`)
       .join(", ");
+
+    if (moreInfo) {
+      tags += `, ${moreInfo}`;
+    }
+
     console.log(tags);
     return tags;
   } catch (err) {
@@ -64,12 +69,13 @@ const getGeminiRequests = async (
 
 const getRecommendationRequests = async (tags, minPrice, maxPrice, gender) => {
   try {
-    const res = await axios.post("https://www.giftguru.fun/recommendation", {
+    const res = await axios.post("http://localhost:3001/recommendation", {
       tags,
       minPrice,
       maxPrice,
       gender,
     });
+    console.log(res.data);
     return res.data.result;
   } catch (err) {
     console.error(err);
