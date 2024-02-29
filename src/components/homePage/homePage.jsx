@@ -56,10 +56,6 @@ const getGeminiRequests = async (
       .map((item) => `${genderValue} ${item.substring(item.indexOf(". ") + 2)}`)
       .join(", ");
 
-    if (moreInfo) {
-      tags += `, ${moreInfo}`;
-    }
-
     console.log(tags);
     return tags;
   } catch (err) {
