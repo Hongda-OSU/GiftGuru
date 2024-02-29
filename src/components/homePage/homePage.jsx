@@ -69,13 +69,12 @@ const getGeminiRequests = async (
 
 const getRecommendationRequests = async (tags, minPrice, maxPrice, gender) => {
   try {
-    const res = await axios.post("http://localhost:3001/recommendation", {
+    const res = await axios.post("https://www.giftguru.fun/recommendation", {
       tags,
       minPrice,
       maxPrice,
       gender,
     });
-    console.log(res.data);
     return res.data.result;
   } catch (err) {
     console.error(err);
