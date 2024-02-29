@@ -74,7 +74,6 @@ const getRecommendationRequests = async (tags, minPrice, maxPrice, gender) => {
   } catch (err) {
     console.error(err);
   }
-  // return jsonData.result;
 };
 
 const HomePage = ({}) => {
@@ -132,7 +131,7 @@ const HomePage = ({}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleGeneratePlan = async () => {
-    if (images.length === 0) {
+    if (images.length === 0 || genderValue === "") {
       setIsModalOpen(true);
       return;
     }
@@ -306,19 +305,17 @@ const HomePage = ({}) => {
         <Header />
         <Container maxWidth="sm" sx={{ marginTop: "65px" }}>
           <Box sx={{ minWidth: 200 }}>
+            <FormControl fullWidth>
+              <Typography variant="body2" gutterBottom sx={{ margin: "0" }}>
+                Image Inputs <span style={{ color: "red" }}>*</span>
+              </Typography>
+            </FormControl>
+
             <FormControl fullWidth sx={{ my: 2 }}>
               <DropzoneAreaExample
                 handleImagesChange={handleImagesChange}
               ></DropzoneAreaExample>
             </FormControl>
-
-            <FormControl fullWidth>
-              <Typography variant="body2" gutterBottom>
-                OPTIONAL INPUTS
-              </Typography>
-            </FormControl>
-
-            <Divider sx={{ my: 1 }} />
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
@@ -404,7 +401,7 @@ const HomePage = ({}) => {
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
-                Recipient gender
+                Recipient Gender <span style={{ color: "red" }}>*</span>
               </Typography>
             </FormControl>
 
@@ -427,7 +424,7 @@ const HomePage = ({}) => {
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
-                Recipient age range
+                Recipient age Range
               </Typography>
             </FormControl>
 
@@ -454,7 +451,7 @@ const HomePage = ({}) => {
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
-                Relationship with recipient
+                Relationship with Recipient
               </Typography>
             </FormControl>
 
@@ -481,7 +478,7 @@ const HomePage = ({}) => {
 
             <FormControl fullWidth>
               <Typography variant="body2" gutterBottom>
-                Price range
+                Price Range <span style={{ color: "red" }}>*</span>
               </Typography>
             </FormControl>
 
@@ -554,9 +551,9 @@ const HomePage = ({}) => {
                   Warning
                 </Typography>
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                  {moreInfo.length === 0
-                    ? `Please upload at least one image to get recommendations🤖.`
-                    : `Please provide more information🤖.`}
+                  {genderValue !== ""
+                    ? `Please upload at least one image to get recommendations.`
+                    : `Please pick a gender first.`}
                 </Typography>
               </Box>
             </Modal>
