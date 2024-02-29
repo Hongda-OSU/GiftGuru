@@ -22,6 +22,8 @@ import Header from "../header/header";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthState } from "../../../utilities/firebaseUtils";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+import HourglassTopIcon from "@mui/icons-material/HourglassTop";
+import HourglassBottomIcon from "@mui/icons-material/HourglassBottom";
 
 const getGeminiRequests = async (
   images,
@@ -71,6 +73,7 @@ const getRecommendationRequests = async (tags, minPrice, maxPrice, gender) => {
   } catch (err) {
     console.error(err);
   }
+  // return jsonData.result;
 };
 
 const HomePage = ({}) => {
@@ -158,22 +161,41 @@ const HomePage = ({}) => {
     });
   };
 
-  const Loader = () => {
-    const [text, setText] = useState("");
+  // const Loader = () => {
+  //   const [text, setText] = useState("");
+  //   useEffect(() => {
+  //     const interval = setInterval(() => {
+  //       setText((prevText) => {
+  //         return prevText.length === 3 ? "" : prevText + ".";
+  //       });
+  //     }, 300);
+  //     return () => clearInterval(interval);
+  //   }, []);
+  //   return (
+  //     <div style={overlayStyle}>
+  //       <div style={loaderStyle}>
+  //         <h4>Recommendations are loading, please wait{text}</h4>
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
+  const Loader = () => {
+    const [isTop, setIsTop] = useState(true);
     useEffect(() => {
       const interval = setInterval(() => {
-        setText((prevText) => {
-          return prevText.length === 3 ? "" : prevText + ".";
-        });
-      }, 300);
+        setIsTop((prevIsTop) => !prevIsTop);
+      }, 1000);
       return () => clearInterval(interval);
     }, []);
-
     return (
       <div style={overlayStyle}>
         <div style={loaderStyle}>
-          <h4>Recommendations are loading, please wait{text}</h4>
+          {isTop ? (
+            <HourglassTopIcon className="rotate-icon" fontSize="large" />
+          ) : (
+            <HourglassBottomIcon className="rotate-icon" fontSize="large" />
+          )}
         </div>
       </div>
     );
