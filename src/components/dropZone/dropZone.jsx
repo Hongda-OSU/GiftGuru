@@ -22,24 +22,24 @@ const thumbStyle = {
   position: "relative",
 };
 
-const DropzoneAreaExample = ({handleImagesChange}) => {
+const DropzoneAreaExample = ({ handleImagesChange }) => {
   const [files, setFiles] = useState([]);
+
   const onDrop = useCallback(
     (acceptedFiles) => {
-      const newUniqueFiles = acceptedFiles.filter(
-        (newFile) =>
-          !files.some((existingFile) => existingFile.name === newFile.name)
+      const imageFiles = acceptedFiles.filter(
+        (file) => file.type === 'image/jpeg' || file.type === 'image/png'
       );
-      const newFilesToAdd = newUniqueFiles
-        .slice(0, 10 - files.length)
-        .map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        );
-
+      const newUniqueFiles = imageFiles.filter(
+        (newFile) => !files.some((existingFile) => existingFile.name === newFile.name)
+      );
+      const newFilesToAdd = newUniqueFiles.map((file) =>
+        Object.assign(file, {
+          preview: URL.createObjectURL(file),
+        })
+      );
       setFiles((prevFiles) => [...prevFiles, ...newFilesToAdd]);
-      handleImagesChange(newFilesToAdd); 
+      handleImagesChange(newFilesToAdd);
     },
     [files, handleImagesChange]
   );
@@ -57,16 +57,13 @@ const DropzoneAreaExample = ({handleImagesChange}) => {
     );
   };
 
-  useEffect(
-    () => () => {
-      files.forEach((file) => URL.revokeObjectURL(file.preview));
-    },
-    [files]
-  );
+  useEffect(() => () => {
+    files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, [files]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: "image/*",
+    accept: "image/jpeg, image/png",
     maxFiles: 10,
     multiple: true,
     noClick: files.length >= 10,

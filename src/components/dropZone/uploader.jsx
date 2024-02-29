@@ -20,7 +20,7 @@ const MyUploader = () => {
       getUploadParams={getUploadParams}
       onChangeStatus={handleChangeStatus}
       onSubmit={handleSubmit}
-      accept="image/*,audio/*,video/*"
+      accept="image/jpeg, image/png"
     />
   )
 }
