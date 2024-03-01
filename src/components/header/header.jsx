@@ -21,7 +21,7 @@ const Header = () => {
       sx={{
         top: 0,
         background: "linear-gradient(45deg, #00b859, #007580)",
-        height: "50px",
+        height: "48px",
       }}
     >
       <Toolbar variant="dense" sx={{ justifyContent: "center" }}>
@@ -38,7 +38,7 @@ const Header = () => {
           </IconButton>
         )}
         <IconButton edge="start" aria-label="logo">
-          <img src={Logo} alt="Logo" style={{ height: "24px" }} />
+          <img src={Logo} alt="Logo" style={{ height: "22px" }} />
           <p className="header-title">GiftGuru</p>
         </IconButton>
       </Toolbar>
