@@ -55,7 +55,9 @@ const getGeminiRequests = async (
       .split("\n")
       .map((item) => `${genderValue} ${item.substring(item.indexOf(". ") + 2)}`)
       .join(", ");
-
+    if (moreInfo) {
+      tags += `, ${moreInfo}`;
+    }
     console.log(tags);
     return tags;
   } catch (err) {
@@ -63,10 +65,10 @@ const getGeminiRequests = async (
   }
 };
 
-const getRecommendationRequests = async (tag, minPrice, maxPrice) => {
+const getRecommendationRequests = async (tags, minPrice, maxPrice) => {
   try {
     const res = await axios.post("https://www.giftguru.fun/recommendation", {
-      tag,
+      tags,
       minPrice,
       maxPrice,
     });
@@ -144,24 +146,16 @@ const HomePage = ({}) => {
       genderValue,
       moreInfo
     );
-    const tagList = tags.split(", ");
-
-    const recommendationsList = await Promise.all(
-      tagList.map((tag) =>
-        getRecommendationRequests(
-          tag,
-          sliderValue[0],
-          sliderValue[1],
-          genderValue
-        )
-      )
+    const recommendations = await getRecommendationRequests(
+      tags,
+      sliderValue[0],
+      sliderValue[1]
     );
 
-    const combinedRecommendations = recommendationsList.flat();
     setLoading(false);
     navigate("/recommendations", {
       state: {
-        recommendation: combinedRecommendations,
+        recommendation: recommendations,
         sliderValue,
         ageValue,
         relationshipValue,
