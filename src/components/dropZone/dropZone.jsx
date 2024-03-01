@@ -112,7 +112,7 @@ const DropzoneAreaExample = ({ handleImagesChange }) => {
             style={{ color: "#007580", fontSize: "36px" }}
           />
           <p style={{ color: "#007580", fontWeight: "bold" }}>
-            Upload up to 10 images
+            Upload up to 10 images*
           </p>
         </>
       ) : (

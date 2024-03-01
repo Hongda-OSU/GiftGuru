@@ -76,6 +76,7 @@ const getRecommendationRequests = async (tags, minPrice, maxPrice) => {
   } catch (err) {
     console.error(err);
   }
+  // return jsonData.result;
 };
 
 const HomePage = ({}) => {
@@ -288,11 +289,11 @@ const HomePage = ({}) => {
         <Header />
         <Container maxWidth="sm" sx={{ marginTop: "65px" }}>
           <Box sx={{ minWidth: 200 }}>
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <Typography variant="body2" gutterBottom sx={{ margin: "0" }}>
                 Image Inputs <span style={{ color: "red" }}>*</span>
               </Typography>
-            </FormControl>
+            </FormControl> */}
 
             <FormControl fullWidth sx={{ my: 2 }}>
               <DropzoneAreaExample
@@ -468,7 +469,6 @@ const HomePage = ({}) => {
             <Stack
               spacing={2}
               direction="row"
-              sx={{ mb: 1 }}
               alignItems="center"
             >
               <p>$0</p>
