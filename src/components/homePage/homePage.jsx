@@ -303,7 +303,7 @@ const HomePage = ({}) => {
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
-                Detail Information
+                Detailed Information
               </Typography>
             </FormControl>
 
@@ -314,14 +314,14 @@ const HomePage = ({}) => {
               ></InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
-                label="Enter Detail Information"
+                label="Information about the recipient"
                 multiline
                 minRows={1}
                 maxRows={5}
                 variant="outlined"
                 value={moreInfo}
                 onChange={(event) => setMoreInfo(event.target.value)}
-                placeholder="Enter Detail Information"
+                placeholder="Feel free to give us more information"
                 sx={{
                   width: "100%",
                   margin: "0 auto",
@@ -335,7 +335,7 @@ const HomePage = ({}) => {
               </Typography>
             </FormControl>
 
-            <FormControl fullWidth sx={{ mb: 1 }}>
+            <FormControl fullWidth sx={{ mb: 2 }}>
               <InputLabel id="recipients-select-label">
                 Recipient Name
               </InputLabel>
@@ -408,7 +408,7 @@ const HomePage = ({}) => {
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
-                Recipient age Range
+                Recipient Age Range
               </Typography>
             </FormControl>
 
