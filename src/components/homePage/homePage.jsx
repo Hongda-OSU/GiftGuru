@@ -65,7 +65,7 @@ const getGeminiRequests = async (
 
 const getRecommendationRequests = async (tag, minPrice, maxPrice) => {
   try {
-    const res = await axios.post("http://www.giftguru.fun/recommendation", {
+    const res = await axios.post("https://www.giftguru.fun/recommendation", {
       tag,
       minPrice,
       maxPrice,
