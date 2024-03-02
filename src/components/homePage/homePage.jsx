@@ -66,17 +66,17 @@ const getGeminiRequests = async (
 };
 
 const getRecommendationRequests = async (tags, minPrice, maxPrice) => {
-  // try {
-  //   const res = await axios.post("https://www.giftguru.fun/recommendation", {
-  //     tags,
-  //     minPrice,
-  //     maxPrice,
-  //   });
-  //   return res.data.result;
-  // } catch (err) {
-  //   console.error(err);
-  // }
-  return jsonData.result;
+  try {
+    const res = await axios.post("https://www.giftguru.fun/recommendation", {
+      tags,
+      minPrice,
+      maxPrice,
+    });
+    return res.data.result;
+  } catch (err) {
+    console.error(err);
+  }
+  //return jsonData.result;
 };
 
 const HomePage = ({}) => {
