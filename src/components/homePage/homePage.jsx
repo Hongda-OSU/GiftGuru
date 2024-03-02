@@ -55,9 +55,7 @@ const getGeminiRequests = async (
       .split("\n")
       .map((item) => `${genderValue} ${item.substring(item.indexOf(". ") + 2)}`)
       .join(", ");
-    if (moreInfo) {
-      tags += `, ${moreInfo}`;
-    }
+
     console.log(tags);
     return tags;
   } catch (err) {
@@ -147,11 +145,31 @@ const HomePage = ({}) => {
       genderValue,
       moreInfo
     );
-    const recommendations = await getRecommendationRequests(
-      tags,
-      sliderValue[0],
-      sliderValue[1]
+
+    if (!tags) {
+      alert("No API search availiable");
+      return;
+    }
+
+    const tagsArray = tags.split(", ");
+    const groupSize = 2;
+    const tagGroups = [];
+
+    for (let i = 0; i < tagsArray.length; i += groupSize) {
+      tagGroups.push(tagsArray.slice(i, i + groupSize).join(", "));
+    }
+
+    const recommendationPromises = tagGroups.map((group) =>
+      getRecommendationRequests(group, sliderValue[0], sliderValue[1])
     );
+
+    const recommendationResults = await Promise.all(recommendationPromises);
+    const recommendations = recommendationResults.flat();
+
+    if (!recommendations) {
+      alert("No API search availiable");
+      return;
+    }
 
     setLoading(false);
     navigate("/recommendations", {
@@ -462,7 +480,11 @@ const HomePage = ({}) => {
               </Typography>
             </FormControl>
 
-            <Stack spacing={2} direction="row" alignItems="center">
+            <Stack
+              spacing={2}
+              direction="row"
+              alignItems="center"
+            >
               <p>$10</p>
               <Slider
                 value={sliderValue || [10, 150]}
