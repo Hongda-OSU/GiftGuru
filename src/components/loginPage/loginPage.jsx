@@ -202,7 +202,7 @@ const LoginPage = () => {
               <Text
                 color="black"
                 anchorX="center"
-                anchorY="middle" 
+                anchorY="middle"
                 outlineColor="rgba(255, 255, 255, 1)"
                 outlineWidth={0.1}
                 position={[0, 4, 0]}
