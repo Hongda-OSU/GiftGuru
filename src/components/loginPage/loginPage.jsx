@@ -241,7 +241,7 @@ const LoginPage = () => {
             <div className="slogan">
               <span>
                 AI-Powered Gifting Made Personal
-                <span className="wave">&nbsp;💖</span>
+                <article className="wave">&nbsp;💖</article>
               </span>
             </div>
             <div className="login-container">
@@ -334,7 +334,7 @@ const LoginPage = () => {
               </Button>
             </div>
             <div className="sign-up-container">
-              <span>Dont have an account?&nbsp;</span>
+              <span>Don't have an account?&nbsp;</span>
               <span className="sign-up" onClick={onGoSignUpClick}>
                 Sign up now
               </span>
@@ -362,7 +362,7 @@ const LoginPage = () => {
             </div>
             <div className="slogan-2-container">
               <span className="slogan-2">
-                -- Join GiftGuru: Start Gifting Smarter
+                Join GiftGuru: Start Gifting Smarter
                 <span className="wave">&nbsp;🎁</span>
               </span>
             </div>

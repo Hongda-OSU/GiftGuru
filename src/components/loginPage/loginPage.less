@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
 
 .splash {
   width: 100vw;
@@ -35,7 +36,7 @@
   line-height: 2;
   font-size: 64px;
   letter-spacing: 8px;
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Luckiest Guy", sans-serif;
   font-weight: 900;
 }
 
@@ -160,11 +161,9 @@
   width: fit-content;
   overflow-wrap: break-word;
   color: black;
-  font-family: "Noto Sans JP", sans-serif;
-  font-size: 26px;
-  font-weight: 900;
-  font-optical-sizing: auto;
-  font-style: normal;
+  font-family: "Concert One", sans-serif;
+  font-size: 28px;
+  font-weight: 600;
   text-align: center;
   white-space: nowrap;
 }
@@ -178,14 +177,15 @@
 }
 
 .slogan span {
-  margin: auto;
   padding-bottom: 1px;
   overflow-wrap: break-word;
   color: black;
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 15px;
-  font-weight: 800;
+  letter-spacing: 0.02rem;
+  font-weight: bold;
   white-space: nowrap;
+  margin: 3px 0 0 100px;
 }
 
 .wave {
@@ -261,9 +261,9 @@
 .email-input input,
 .password-input input {
   overflow-wrap: break-word !important;
-  font-family: "Noto Sans JP", sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
   white-space: nowrap !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
   font-weight: 600 !important;
   padding: 12px 0 12px 20px !important;
   margin: 4.5px 0 4.5px 0 !important;
@@ -277,7 +277,7 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 16px;
+  padding-top: 20px;
 }
 
 .switch {
@@ -286,7 +286,7 @@
 
 .MuiFormControlLabel-label {
   color: rgba(0, 0, 0, 0.8) !important;
-  font-family: "Noto Sans JP", sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
   font-size: 13px !important;
   font-weight: 800 !important;
 }
@@ -303,7 +303,7 @@
   background: linear-gradient(90deg, #0061ff 0, #6f7bf7 62%) !important;
   color: #ffffff !important;
   font-size: 18px !important;
-  font-family: "Noto Sans JP", sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
   letter-spacing: 2px !important;
   font-weight: 800 !important;
   text-transform: none !important;
@@ -334,8 +334,8 @@
   width: fit-content;
   overflow-wrap: break-word;
   color: rgba(0, 0, 0, 0.6);
-  font-family: "Noto Sans JP", sans-serif;
-  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
   text-align: center;
   font-weight: bold;
   white-space: nowrap;
@@ -368,16 +368,17 @@
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 24px;
+  padding-top: 26px;
 }
 
 .sign-up-container span {
   overflow-wrap: break-word;
   color: black;
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: bold;
   white-space: nowrap;
+  letter-spacing: 0.01rem;
 }
 
 .sign-up {
@@ -453,12 +454,13 @@
 .slogan-2 {
   padding-bottom: 1px;
   overflow-wrap: break-word;
-  color: rgba(0, 0, 0, 1);
-  font-family: "Noto Sans JP", sans-serif;
-  font-size: 14px;
+  color: black;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.02rem;
   font-weight: bold;
   white-space: nowrap;
-  margin: 5px 0 0 100px;
+  margin: 10px 0 0 100px;
 }
 
 .profile-image-container {
@@ -549,24 +551,25 @@
   padding-right: 4px !important;
 }
 
-.signup-email-input input,
-.signup-phone-input input,
-.signup-password-input input {
-  overflow-wrap: break-word !important;
-  font-family: "Noto Sans JP", sans-serif !important;
-  white-space: nowrap !important;
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  margin-left: 5px;
-}
-
 .signup-email-input label,
 .signup-phone-input label,
 .signup-password-input label {
   overflow-wrap: break-word !important;
-  font-family: "Noto Sans JP", sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
   white-space: nowrap !important;
-  font-size: 16px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: rgba(128, 128, 128, 0.7) !important;
+  margin-left: 5px;
+}
+
+.signup-email-input input,
+.signup-phone-input input,
+.signup-password-input input {
+  overflow-wrap: break-word !important;
+  font-family: "Roboto", sans-serif !important;
+  white-space: nowrap !important;
+  font-size: 15px !important;
   font-weight: 600 !important;
   margin-left: 5px;
 }
@@ -592,8 +595,8 @@
 .signup-button {
   background: linear-gradient(90deg, #0061ff 0, #6f7bf7 62%) !important;
   color: #ffffff !important;
-  font-size: 18px !important;
-  font-family: "Noto Sans JP", sans-serif !important;
+  font-size: 17px !important;
+  font-family: "Roboto", sans-serif !important;
   letter-spacing: 2px !important;
   font-weight: 700 !important;
   text-transform: none !important;
@@ -618,10 +621,11 @@
 .back-login-container span {
   overflow-wrap: break-word;
   color: black;
-  font-family: "Noto Sans JP", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   font-weight: bold;
   white-space: nowrap;
+  letter-spacing: 0.01rem;
 }
 
 .back-login {
