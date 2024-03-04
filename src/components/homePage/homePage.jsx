@@ -317,7 +317,7 @@ const HomePage = ({}) => {
 
             <FormControl fullWidth sx={{ mb: 1 }}>
               <Typography variant="body2" gutterBottom>
-                Detailed Information
+                Gift Information
               </Typography>
             </FormControl>
 
@@ -328,14 +328,14 @@ const HomePage = ({}) => {
               ></InputLabel>
               <TextField
                 id="outlined-multiline-flexible"
-                label="Information about the recipient"
+                label="Information about the gift you looking for"
                 multiline
                 minRows={1}
                 maxRows={5}
                 variant="outlined"
                 value={moreInfo}
                 onChange={(event) => setMoreInfo(event.target.value)}
-                placeholder="Feel free to give us more information"
+                placeholder="Eg. Cloth, Shoes, Toy..."
                 sx={{
                   width: "100%",
                   margin: "0 auto",
