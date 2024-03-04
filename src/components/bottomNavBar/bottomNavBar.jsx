@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import EmojiPeopleIcon from "@mui/icons-material/EmojiPeople";
@@ -42,7 +42,7 @@ const BottomNavbar = () => {
             color: "#007580",
           },
         }}
-        onClick={() => navigate("/home")}
+        onClick={() => navigate("/home", { state: {...location.state, }, })}
       >
         <Box
           sx={{
@@ -68,7 +68,7 @@ const BottomNavbar = () => {
             color: "#007580",
           },
         }}
-        onClick={() => navigate("/recipients")}
+        onClick={() => navigate("/recipients", { state: {...location.state, }, })}
       >
         <Box
           sx={{
@@ -94,7 +94,7 @@ const BottomNavbar = () => {
             color: "#007580",
           },
         }}
-        onClick={() => navigate("/profile")}
+        onClick={() => navigate("/profile", { state: {...location.state, }, })}
       >
         <Box
           sx={{

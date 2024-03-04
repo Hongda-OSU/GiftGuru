@@ -74,7 +74,7 @@ const getRecommendationRequests = async (tags, minPrice, maxPrice) => {
   } catch (err) {
     console.error(err);
   }
-  //return jsonData.result;
+  // return jsonData.result;
 };
 
 const HomePage = ({}) => {
@@ -105,7 +105,7 @@ const HomePage = ({}) => {
   };
   const [sliderValue, setSliderValue] = React.useState([10, 150]);
   const handleSliderChange = (event, newValue) => {
-    if (newValue[1] - newValue[0] >= 10) {
+    if (newValue && newValue[1] - newValue[0] >= 10) {
       setSliderValue(newValue);
     }
   };
@@ -123,10 +123,10 @@ const HomePage = ({}) => {
   const [genderValue, setGenderValue] = useState("");
   const handleGenderChange = (event) => {
     setGenderValue(event.target.value);
+    console.log('Gender value updated:', event.target.value);
   };
 
   const [moreInfo, setMoreInfo] = useState("");
-  const [apiKey, setApiKey] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -180,8 +180,6 @@ const HomePage = ({}) => {
         relationshipValue,
         genderValue,
         moreInfo,
-        images,
-        apiKey,
         selectedRecipient,
       },
     });
@@ -247,8 +245,6 @@ const HomePage = ({}) => {
     setRelationshipValue(state.relationshipValue);
     setGenderValue(state.genderValue);
     setMoreInfo(state.moreInfo);
-    setImages(state.images);
-    setApiKey(state.apiKey);
     setSelectedRecipient(state.selectedRecipient);
   };
 
@@ -484,10 +480,14 @@ const HomePage = ({}) => {
               </Typography>
             </FormControl>
 
-            <Stack spacing={2} direction="row" alignItems="center">
-              <p>$0</p>
+            <Stack
+              spacing={2}
+              direction="row"
+              alignItems="center"
+            >
+              <p>$10</p>
               <Slider
-                value={sliderValue}
+                value={sliderValue || [10, 150]}
                 onChange={handleSliderChange}
                 valueLabelDisplay="auto"
                 min={10}
@@ -532,6 +532,7 @@ const HomePage = ({}) => {
                 Get Recommendations
               </Button>
             </FormControl>
+
             <Modal
               open={isModalOpen}
               onClose={() => setIsModalOpen(false)}
@@ -554,6 +555,7 @@ const HomePage = ({}) => {
                 </Typography>
               </Box>
             </Modal>
+
             {loading && <Loader sx={{ mb: 2 }} />}
           </Box>
         </Container>
