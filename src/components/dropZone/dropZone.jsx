@@ -22,7 +22,7 @@ const thumbStyle = {
   position: "relative",
 };
 
-const DropzoneAreaExample = ({ handleImagesChange }) => {
+const DropzoneAreaExample = ({ handleImagesChange, deleteImage }) => {
   const [files, setFiles] = useState([]);
 
   const onDrop = useCallback(
@@ -55,6 +55,7 @@ const DropzoneAreaExample = ({ handleImagesChange }) => {
         return true;
       })
     );
+    deleteImage(fileName)
   };
 
   useEffect(() => () => {

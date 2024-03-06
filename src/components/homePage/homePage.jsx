@@ -103,6 +103,10 @@ const HomePage = ({}) => {
   const handleImagesChange = (newFiles) => {
     setImages((prevFiles) => [...prevFiles, ...newFiles]);
   };
+
+  const handleDeleteImage = (fileName) => {
+    setImages((prevImages) => prevImages.filter((file) => file.name !== fileName));
+};
   const [sliderValue, setSliderValue] = React.useState([10, 150]);
   const handleSliderChange = (event, newValue) => {
     if (newValue && newValue[1] - newValue[0] >= 10) {
@@ -288,6 +292,8 @@ const HomePage = ({}) => {
     }
   }, [location]);
 
+  console.log(images)
+
   return (
     <Box
       sx={{
@@ -312,6 +318,7 @@ const HomePage = ({}) => {
             <FormControl fullWidth sx={{ my: 2 }}>
               <DropzoneAreaExample
                 handleImagesChange={handleImagesChange}
+                deleteImage={handleDeleteImage}
               ></DropzoneAreaExample>
             </FormControl>
 
