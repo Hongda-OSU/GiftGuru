@@ -264,23 +264,22 @@ const HomePage = ({}) => {
 
   const handleAddPerson = async () => {
     const recipientsRef = ref(getDatabase(), `recipients/${user.uid}`);
-    if (!newPerson || recipients.includes(newPerson)) {
+    if (!newPerson || recipients.some(recipient => recipient === newPerson)) {
       console.error("Invalid person name or already exists");
       return;
     }
+    const newRecipient = newPerson.trim(); 
     try {
-      setSelectedRecipient(newPerson);
-      await set(recipientsRef, [...recipients, newPerson]);
-      onValue(
-        recipientsRef,
-        (snapshot) => {
-          const updatedRecipients = snapshot.val() || [];
-          setRecipients(updatedRecipients);
-        },
-        {
-          onlyOnce: true,
+      await set(recipientsRef, [...recipients, newRecipient]);
+      setSelectedRecipient(newRecipient);
+      onValue(recipientsRef, (snapshot) => {
+        const updatedRecipients = snapshot.val() || [];
+        setRecipients(updatedRecipients);
+        if (updatedRecipients.includes(newRecipient)) {
+          setSelectedRecipient(newRecipient);
         }
-      );
+      });
+      setIsAddingNewPerson(false);
     } catch (error) {
       console.error("Firebase update failed: ", error);
     }
