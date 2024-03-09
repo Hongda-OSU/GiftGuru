@@ -88,9 +88,9 @@ Important notes about app logics:
    
 <!-- ISSUES -->
 
-## Known Issues
+<!-- ## Known Issues
 
-1. The Homepage cannot save the local images uploaded, when you go back from the Recommendation page.
+1. The Homepage cannot save the local images uploaded, when you go back from the Recommendation page. -->
 
 <!-- LICENSE -->
 
