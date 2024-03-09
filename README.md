@@ -90,6 +90,9 @@ Important notes about app logics:
 
 <!-- ## Known Issues
 
+That's something we should have done, but I won't consider it as a bug. 
+No need to clarify any bug for this moment.
+
 1. The Homepage cannot save the local images uploaded, when you go back from the Recommendation page. -->
 
 <!-- LICENSE -->
