@@ -45,7 +45,7 @@ const getGeminiRequests = async (
   inputData.append("moreInfo", moreInfo);
 
   try {
-    const res = await axios.post("https://www.giftguru.fun/gemini", inputData, {
+    const res = await axios.post("http://localhost:3001/gemini", inputData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -65,7 +65,7 @@ const getGeminiRequests = async (
 
 const getRecommendationRequests = async (tags, minPrice, maxPrice) => {
   try {
-    const res = await axios.post("https://www.giftguru.fun/recommendation", {
+    const res = await axios.post("http://localhost:3001/recommendation", {
       tags,
       minPrice,
       maxPrice,
