@@ -83,12 +83,12 @@ Important notes about app logics:
 
 1. We use prompt in the [backend code ](https://github.com/394-w24/GiftGuruBE/blob/main/routes/gemini.js), you can change it to return more specific gift tags.
    - But there are limitations of what Gemini can return. It cannot recognize things that it don't know. (AI limitation)
-2. Also, in the above file. You will noticed that we only let Gemini generate 6 tags from the image we input. You can change it.
+2. Also, in the above file. You will noticed that we only let Gemini generate 6 tags from the image we input. 
 3. We use the Google Shopping API wrapped by Serpapi to do the gift seaching. But there are some implementation details:
    - Be ware that there are only 100 free searches per account per month!
    - In the [frontend code](https://github.com/394-w24/GiftGuru/blob/master/src/components/homePage/homePage.jsx), line 170, you will noticed that we divide 6 tags into 3 groups, each with 2 tags and call the Google Shopping API.
    - This will result in 3 searches per get recommendation.
-   - The reason why we do this is because it return better searching result. (But it takes more time to load the result)
+   - The reason why we do this is because it return better searching result. (But it takes more time)
    
 <!-- ISSUES -->
 
