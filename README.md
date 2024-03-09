@@ -110,4 +110,5 @@ Super thanks to all the team members of Team Orange 💖
 ## Contact
 
 - Hongda Lin: hongdalin2026@u.northwestern.edu
+- Zitao Cai: zitaocai2025@u.northwestern.edu
 - Project Link: https://github.com/394-w24/GiftGuru
