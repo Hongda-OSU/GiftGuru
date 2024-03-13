@@ -70,7 +70,7 @@ npm run dev
 
 ## Continue Working
 
-Important notes about hosting:
+#### Important notes about hosting
 
 1. Fork the Project to your own repo.
 2. The project is hosted using firebase. The authentication and sign-up logics is also down in firebase.
@@ -78,8 +78,7 @@ Important notes about hosting:
    - Follow the instruction in firebase and change this [file](https://github.com/394-w24/GiftGuru/blob/master/utilities/firebase.js) when you finished.
 3. In order to have a working website on the internet, you have to host your backend, not locally! 
 
-
-Important notes about app logics:
+#### Important notes about app logics
 
 1. We use prompt in the [backend code ](https://github.com/394-w24/GiftGuruBE/blob/main/routes/gemini.js), you can change it to return more specific gift tags.
    - But there are limitations of what Gemini can return. It cannot recognize things that it don't know. (AI limitation)
