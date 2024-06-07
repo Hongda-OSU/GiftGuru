@@ -14,7 +14,7 @@
  <img width="33%" src="https://raw.githubusercontent.com/Hongda-OSU/PicGo-2.3.1/master/img183237.png" />
 </p>
 
-- Gift Guru is a gift-giving web application combining AI image recognization and Google Shopping API. 
+- Gift Guru is a gift-giving web application combining Gemini image recognization and Google Shopping API
 - By uploading photos of your loved one enjoys, the AI analyzes the image and suggest the perfect gift. 
 
 ### Built With
